@@ -94,6 +94,9 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        botonAlquilar1 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         jLabel4.setText("Soy un JDIALOG");
 
@@ -223,18 +226,18 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
 
         spinDesde.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(spinDesde);
-        spinDesde.setBounds(300, 110, 90, 30);
+        spinDesde.setBounds(340, 110, 90, 30);
 
         jLabel2.setBackground(new java.awt.Color(255, 200, 0));
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("<");
+        jLabel2.setText("$");
         add(jLabel2);
-        jLabel2.setBounds(410, 110, 20, 30);
+        jLabel2.setBounds(480, 110, 20, 30);
 
         spinHasta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(spinHasta);
-        spinHasta.setBounds(450, 110, 90, 30);
+        spinHasta.setBounds(500, 110, 90, 30);
 
         jLabel3.setBackground(new java.awt.Color(255, 200, 0));
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -245,6 +248,7 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
         jLabel3.setBounds(10, 110, 180, 30);
 
         botonAlquilar.setBackground(new java.awt.Color(255, 100, 0));
+        botonAlquilar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/CasitaAlquiler.PNG"))); // NOI18N
         botonAlquilar.setText("Alquilar");
         botonAlquilar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -252,9 +256,10 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
             }
         });
         add(botonAlquilar);
-        botonAlquilar.setBounds(1030, 570, 130, 40);
+        botonAlquilar.setBounds(900, 570, 140, 49);
 
         botonDetalles.setBackground(new java.awt.Color(255, 200, 0));
+        botonDetalles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/CasaCaja.PNG"))); // NOI18N
         botonDetalles.setText("Informacion");
         botonDetalles.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -262,7 +267,7 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
             }
         });
         add(botonDetalles);
-        botonDetalles.setBounds(860, 570, 130, 40);
+        botonDetalles.setBounds(705, 570, 140, 50);
 
         jcbZona.setBackground(new java.awt.Color(255, 200, 0));
         jcbZona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Zona", "Centro", "Sur", "Norte", "Este", "Oeste", "Universitaria" }));
@@ -319,6 +324,31 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Camita.PNG"))); // NOI18N
         add(jLabel11);
         jLabel11.setBounds(10, 360, 60, 40);
+
+        botonAlquilar1.setBackground(new java.awt.Color(102, 102, 0));
+        botonAlquilar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/CasitaVenta.PNG"))); // NOI18N
+        botonAlquilar1.setText("Vender");
+        botonAlquilar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAlquilar1ActionPerformed(evt);
+            }
+        });
+        add(botonAlquilar1);
+        botonAlquilar1.setBounds(1080, 570, 140, 50);
+
+        jLabel5.setBackground(new java.awt.Color(255, 200, 0));
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("<");
+        add(jLabel5);
+        jLabel5.setBounds(450, 110, 20, 30);
+
+        jLabel12.setBackground(new java.awt.Color(255, 200, 0));
+        jLabel12.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("$");
+        add(jLabel12);
+        jLabel12.setBounds(320, 110, 20, 30);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonListarAction(int desdite,int hastita, int zonita, int tipito, int operacioncita, int estadito, int habitacioncita){
@@ -405,9 +435,14 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbZonaActionPerformed
 
+    private void botonAlquilar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAlquilar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonAlquilar1ActionPerformed
+
     private DefaultTableModel tabla;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAlquilar;
+    private javax.swing.JButton botonAlquilar1;
     private javax.swing.JButton botonDetalles;
     private javax.swing.JButton botonListar;
     private javax.swing.JButton jButton1;
@@ -416,9 +451,11 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
