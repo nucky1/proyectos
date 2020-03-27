@@ -34,6 +34,15 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
         this.duenioID = duenioID;
         this.inmuebleID = inmuebleID;
         initComponents();
+        //---------CSS STYLE
+          //this.setBorder(StyleCSS.getBordePanel("Seleccionar Cliente-Ingresar Nuevo"));
+          jPanel1.setBorder(StyleCSS.getBordePanel("Datos del Dueño: "));
+          jPanel2.setBorder(StyleCSS.getBordePanel("Cargar Datos de la Operción :"));
+        StyleCSS.setPlaceHolder(precioInicialField, "0");
+        StyleCSS.setPlaceHolder(seniaField, "0");
+        StyleCSS.setPlaceHolder(depositoField, "0");
+        StyleCSS.setPlaceHolder(comisionField, "0");
+        //---------FIN CSS STYLE
         Cliente aux = (new HacerContratoController(this)).buscarCliente(duenioID);
         Asesor aux2 = (new HacerContratoController(this)).buscarAsesor(aux.getAsesorID());
         (new HacerContratoController(this)).llenarComboBox();
@@ -57,6 +66,8 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        botonSalir = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -66,6 +77,7 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
         labelDni = new javax.swing.JLabel();
         labelTel = new javax.swing.JLabel();
         labelContacto = new javax.swing.JLabel();
+        jLabel23 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
@@ -76,14 +88,12 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
         totalLabel = new javax.swing.JLabel();
         pagadoLabel = new javax.swing.JLabel();
         restanteLabel = new javax.swing.JLabel();
-        jLabel39 = new javax.swing.JLabel();
         jLabel40 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
         jLabel44 = new javax.swing.JLabel();
         jLabel47 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        botonSalir = new javax.swing.JButton();
         comCap = new javax.swing.JLabel();
         comOfi = new javax.swing.JLabel();
         comAseC = new javax.swing.JLabel();
@@ -98,15 +108,30 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
         depositoField = new javax.swing.JTextField();
         seniaField = new javax.swing.JTextField();
         precioInicialField = new javax.swing.JTextField();
-        comboAsesores = new javax.swing.JComboBox<>();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
+        jLabel46 = new javax.swing.JLabel();
+        botonSalir1 = new javax.swing.JButton();
         labelNombreAse = new javax.swing.JLabel();
+        jLabel39 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
+        comboAsesores = new javax.swing.JComboBox<>();
+        jLabel27 = new javax.swing.JLabel();
         labelIdAse = new javax.swing.JLabel();
+        jLabel48 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(231, 61, 0)), "Cargar Datos del Contrato", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 12))); // NOI18N
+        setLayout(null);
+
+        botonSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/CruzSalir.PNG"))); // NOI18N
+        botonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalirActionPerformed(evt);
+            }
+        });
+        add(botonSalir);
+        botonSalir.setBounds(1080, 0, 30, 30);
+
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(231, 60, 0), 2, true), "Cargar Datos del Contrato", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft YaHei UI", 1, 16))); // NOI18N
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(231, 60, 0)), "Datos del Dueño: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 13))); // NOI18N
@@ -148,6 +173,9 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
         jPanel1.add(labelContacto);
         labelContacto.setBounds(200, 130, 210, 20);
 
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel23.setText("Asesor que capto la propiedad :");
+
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(231, 60, 0)), "Cargar Datos de la Operción :", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft JhengHei UI", 0, 14))); // NOI18N
         jPanel2.setLayout(null);
@@ -155,80 +183,75 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
         jLabel30.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel30.setText("Total :");
         jPanel2.add(jLabel30);
-        jLabel30.setBounds(30, 150, 73, 14);
+        jLabel30.setBounds(50, 150, 73, 14);
 
         jLabel31.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel31.setText("Pagado :");
         jPanel2.add(jLabel31);
-        jLabel31.setBounds(30, 190, 73, 14);
+        jLabel31.setBounds(50, 190, 73, 14);
 
         jLabel32.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel32.setText("Restante :");
         jPanel2.add(jLabel32);
-        jLabel32.setBounds(30, 230, 73, 14);
+        jLabel32.setBounds(50, 230, 73, 14);
 
         jLabel33.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel33.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel33.setText("$");
         jPanel2.add(jLabel33);
-        jLabel33.setBounds(110, 140, 18, 30);
+        jLabel33.setBounds(130, 140, 18, 30);
 
         jLabel34.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel34.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel34.setText("$");
         jPanel2.add(jLabel34);
-        jLabel34.setBounds(110, 180, 18, 30);
+        jLabel34.setBounds(130, 180, 18, 30);
 
         jLabel35.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel35.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel35.setText("$");
         jPanel2.add(jLabel35);
-        jLabel35.setBounds(110, 220, 18, 30);
+        jLabel35.setBounds(130, 220, 18, 30);
 
         totalLabel.setText("0.0");
         jPanel2.add(totalLabel);
-        totalLabel.setBounds(130, 150, 190, 14);
+        totalLabel.setBounds(150, 150, 190, 14);
 
         pagadoLabel.setText("0.0");
         jPanel2.add(pagadoLabel);
-        pagadoLabel.setBounds(130, 190, 190, 14);
+        pagadoLabel.setBounds(150, 190, 190, 14);
 
         restanteLabel.setText("0.0");
         jPanel2.add(restanteLabel);
-        restanteLabel.setBounds(130, 230, 190, 14);
-
-        jLabel39.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel39.setText("Montos :");
-        jPanel2.add(jLabel39);
-        jLabel39.setBounds(30, 100, 100, 20);
+        restanteLabel.setBounds(150, 230, 190, 14);
 
         jLabel40.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel40.setText("Captador Cliente :");
         jPanel2.add(jLabel40);
-        jLabel40.setBounds(340, 180, 110, 20);
+        jLabel40.setBounds(360, 180, 110, 20);
 
         jLabel41.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel41.setText("Captador Inmueble :");
         jPanel2.add(jLabel41);
-        jLabel41.setBounds(340, 220, 120, 30);
+        jLabel41.setBounds(360, 220, 120, 30);
 
         jLabel43.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel43.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel43.setText("$");
         jPanel2.add(jLabel43);
-        jLabel43.setBounds(460, 220, 18, 30);
+        jLabel43.setBounds(510, 220, 18, 30);
 
         jLabel44.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel44.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel44.setText("$");
         jPanel2.add(jLabel44);
-        jLabel44.setBounds(460, 180, 18, 20);
+        jLabel44.setBounds(510, 180, 18, 20);
 
         jLabel47.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel47.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel47.setText("$");
         jPanel2.add(jLabel47);
-        jLabel47.setBounds(460, 130, 18, 40);
+        jLabel47.setBounds(510, 130, 18, 40);
 
         jButton2.setText("Guardar Datos ");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -239,56 +262,46 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
         jPanel2.add(jButton2);
         jButton2.setBounds(360, 260, 130, 30);
 
-        botonSalir.setText("Salir");
-        botonSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonSalirActionPerformed(evt);
-            }
-        });
-        jPanel2.add(botonSalir);
-        botonSalir.setBounds(510, 260, 79, 30);
-
         comCap.setText("0.0");
         jPanel2.add(comCap);
-        comCap.setBounds(480, 230, 150, 14);
+        comCap.setBounds(530, 230, 100, 14);
 
         comOfi.setText("0.0");
         jPanel2.add(comOfi);
-        comOfi.setBounds(480, 140, 150, 14);
+        comOfi.setBounds(530, 140, 110, 14);
 
         comAseC.setText("0.0");
         jPanel2.add(comAseC);
-        comAseC.setBounds(480, 180, 150, 14);
+        comAseC.setBounds(530, 180, 110, 14);
 
         jLabel42.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel42.setText("Oficina :");
         jPanel2.add(jLabel42);
-        jLabel42.setBounds(340, 140, 110, 20);
+        jLabel42.setBounds(360, 140, 110, 20);
         jPanel2.add(jSeparator3);
         jSeparator3.setBounds(20, 130, 620, 10);
 
         jLabel45.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel45.setText("Comisiones:");
         jPanel2.add(jLabel45);
-        jLabel45.setBounds(340, 100, 100, 20);
+        jLabel45.setBounds(360, 100, 100, 20);
 
         jLabel2.setText("Comision");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(420, 30, 90, 14);
+        jLabel2.setBounds(440, 30, 90, 14);
 
         jLabel12.setText("Seña");
         jPanel2.add(jLabel12);
-        jLabel12.setBounds(160, 30, 90, 14);
+        jLabel12.setBounds(180, 30, 90, 14);
 
         jLabel13.setText("Precio Inicial");
         jPanel2.add(jLabel13);
-        jLabel13.setBounds(30, 30, 90, 14);
+        jLabel13.setBounds(50, 30, 90, 14);
 
         jLabel16.setText("Deposito");
         jPanel2.add(jLabel16);
-        jLabel16.setBounds(290, 30, 90, 14);
+        jLabel16.setBounds(310, 30, 90, 14);
 
-        comisionField.setText("0");
         comisionField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 comisionFieldFocusLost(evt);
@@ -300,9 +313,8 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
             }
         });
         jPanel2.add(comisionField);
-        comisionField.setBounds(420, 60, 90, 30);
+        comisionField.setBounds(440, 60, 90, 30);
 
-        depositoField.setText("0");
         depositoField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 depositoFieldFocusLost(evt);
@@ -314,9 +326,8 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
             }
         });
         jPanel2.add(depositoField);
-        depositoField.setBounds(290, 60, 90, 30);
+        depositoField.setBounds(310, 60, 90, 30);
 
-        seniaField.setText("0");
         seniaField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 seniaFieldFocusLost(evt);
@@ -328,9 +339,8 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
             }
         });
         jPanel2.add(seniaField);
-        seniaField.setBounds(160, 60, 90, 30);
+        seniaField.setBounds(180, 60, 90, 30);
 
-        precioInicialField.setText("0");
         precioInicialField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 precioInicialFieldFocusLost(evt);
@@ -342,75 +352,101 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
             }
         });
         jPanel2.add(precioInicialField);
-        precioInicialField.setBounds(30, 60, 90, 30);
+        precioInicialField.setBounds(50, 60, 90, 30);
 
-        comboAsesores.setEditable(true);
+        jLabel46.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel46.setText("Montos :");
+        jPanel2.add(jLabel46);
+        jLabel46.setBounds(50, 100, 100, 20);
 
-        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel23.setText("Asesor que capto la propiedad :");
-
-        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel27.setText("Asesor que capto Cliente  : ");
+        botonSalir1.setText("Salir");
+        botonSalir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalir1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(botonSalir1);
+        botonSalir1.setBounds(510, 260, 79, 30);
 
         labelNombreAse.setText("jLabel2");
+
+        jLabel39.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel39.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/AsesorCasa.PNG"))); // NOI18N
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel22.setText("Id:");
 
+        comboAsesores.setEditable(true);
+
+        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel27.setText("Asesor que capto el Cliente : ");
+
         labelIdAse.setText("jLabel2");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+        jLabel48.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel48.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/AsesorCliente.PNG"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel27)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(43, 43, 43)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(labelNombreAse, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(labelIdAse, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(comboAsesores, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(20, 20, 20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(labelNombreAse, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(labelIdAse, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel39)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel23))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel48)
+                                .addGap(25, 25, 25)
+                                .addComponent(jLabel27)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(2, 2, 2)
-                                .addComponent(jLabel27))
-                            .addComponent(comboAsesores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(34, 34, 34)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(labelNombreAse, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)
+                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelIdAse, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(comboAsesores, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 631, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelNombreAse, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelIdAse, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel39))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel27)
+                                    .addComponent(jLabel48)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(comboAsesores, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(31, 31, 31)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
+
+        add(jPanel3);
+        jPanel3.setBounds(10, 20, 1110, 340);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -538,9 +574,14 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
         }
     }//GEN-LAST:event_precioInicialFieldKeyTyped
 
+    private void botonSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonSalir1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonSalir;
+    private javax.swing.JButton botonSalir1;
     private javax.swing.JLabel comAseC;
     private javax.swing.JLabel comCap;
     private javax.swing.JLabel comOfi;
@@ -570,11 +611,14 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
+    private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel labelContacto;
     private javax.swing.JLabel labelDni;

@@ -147,6 +147,8 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         depositoField = new javax.swing.JTextField();
         seniaField = new javax.swing.JTextField();
         precioInicialField = new javax.swing.JTextField();
+        jLabel46 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -309,7 +311,7 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         jLabel27.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel27.setText("Asesor que capto Cliente  : ");
         jPanel2.add(jLabel27);
-        jLabel27.setBounds(30, 220, 152, 14);
+        jLabel27.setBounds(90, 220, 152, 14);
 
         comboAsesores.setMaximumSize(null);
         comboAsesores.setMinimumSize(null);
@@ -448,12 +450,12 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
 
         labelNombreAse.setText("jLabel2");
         jPanel2.add(labelNombreAse);
-        labelNombreAse.setBounds(190, 20, 200, 30);
+        labelNombreAse.setBounds(350, 20, 200, 30);
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel23.setText("Asesor que capto la propiedad :");
         jPanel2.add(jLabel23);
-        jLabel23.setBounds(10, 20, 180, 30);
+        jLabel23.setBounds(90, 20, 180, 30);
 
         labelIdAse.setText("jLabel2");
         jPanel2.add(labelIdAse);
@@ -639,6 +641,16 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         });
         jPanel2.add(precioInicialField);
         precioInicialField.setBounds(30, 370, 90, 30);
+
+        jLabel46.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel46.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/AsesorCasa.PNG"))); // NOI18N
+        jPanel2.add(jLabel46);
+        jLabel46.setBounds(30, 20, 30, 30);
+
+        jLabel51.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel51.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/AsesorCliente.PNG"))); // NOI18N
+        jPanel2.add(jLabel51);
+        jLabel51.setBounds(30, 210, 30, 30);
 
         add(jPanel2);
         jPanel2.setBounds(470, 30, 650, 660);
@@ -1102,11 +1114,13 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
     private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
