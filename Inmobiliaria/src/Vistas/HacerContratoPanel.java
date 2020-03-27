@@ -33,7 +33,8 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
     private int duenioID;
     private int asesorID;
     private int inmuebleID;
-
+    private ArrayList errores = new ArrayList<String>();
+    private HacerContratoController pac = new HacerContratoController(this);
     /**
      * Creates new form HacerContrato
      */
@@ -63,6 +64,7 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         this.botonNuevoCliente.setEnabled(false);
         this.precioInicialField.setText(""+pInicial);
         this.fechaInicio.setDate(new Date(System.currentTimeMillis()));
+        pac.llenarTablaPorDni("");
     }
 
     /**
@@ -678,22 +680,18 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         jPanel1.add(jLabel11);
         jLabel11.setBounds(20, 130, 90, 20);
 
-        labelNombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelNombre.setText("Francisco");
         jPanel1.add(labelNombre);
         labelNombre.setBounds(200, 40, 210, 20);
 
-        labelDni.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelDni.setText("40823458");
         jPanel1.add(labelDni);
         labelDni.setBounds(200, 70, 210, 20);
 
-        labelTel.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelTel.setText("2664842481");
         jPanel1.add(labelTel);
         labelTel.setBounds(200, 100, 210, 20);
 
-        labelContacto.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelContacto.setText("rosasfran.97@gmail");
         jPanel1.add(labelContacto);
         labelContacto.setBounds(200, 130, 210, 20);
@@ -706,7 +704,6 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         if (this.tablaClientes.getSelectedRow() == -1) {
             this.botonNuevoCliente.setVisible(true);
         }
-        HacerContratoController pac = new HacerContratoController(this);
         pac.llenarTablaPorDni(jBuscarPorDni.getText());
     }//GEN-LAST:event_jBuscarPorDniKeyReleased
 
@@ -813,13 +810,10 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
     }//GEN-LAST:event_precioInicialFieldKeyTyped
 
     private void precioInicialFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_precioInicialFieldFocusLost
-        if(precioInicialField.getText().equals("")){
-            precioInicialField.setText("0");
-        }
         try {
             this.llenarLabels();
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "El precio inicial es invalido", "Error", JOptionPane.ERROR_MESSAGE);
+            //errores.add( " precio inicial ");
         }
     }//GEN-LAST:event_precioInicialFieldFocusLost
 
@@ -831,13 +825,10 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
     }//GEN-LAST:event_seniaFieldKeyTyped
 
     private void seniaFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_seniaFieldFocusLost
-        if(seniaField.getText().equals("")){
-            seniaField.setText("0");
-        }
         try {
             this.llenarLabels();
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "La seña es invalida", "Error", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "La seña es invalida", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_seniaFieldFocusLost
 
@@ -849,13 +840,10 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
     }//GEN-LAST:event_depositoFieldKeyTyped
 
     private void depositoFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_depositoFieldFocusLost
-        if(depositoField.getText().equals("")){
-            depositoField.setText("0");
-        }
         try {
             this.llenarLabels();
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "El deposito es invalido", "Error", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "El deposito es invalido", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_depositoFieldFocusLost
 
@@ -867,13 +855,10 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
     }//GEN-LAST:event_comisionFieldKeyTyped
 
     private void comisionFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comisionFieldFocusLost
-        if(comisionField.getText().equals("")){
-            comisionField.setText("0");
-        }
         try {
             this.llenarLabels();
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "La comision es invalida", "Error", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "La comision es invalida", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_comisionFieldFocusLost
 
@@ -905,9 +890,8 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
             aux = (float) Math.ceil(aux);
             aux *= 50;
             this.aumentoField.setText("" + aux);
-
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El porcentaje ingresado es invalido", "Error", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "El porcentaje ingresado es invalido", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_porcentajeAumentoFieldFocusLost
 
@@ -918,10 +902,10 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         }
         try {
             if (Integer.parseInt(this.periodoAumentoField.getText()) < 0 || 12 < Integer.parseInt(this.periodoAumentoField.getText())) {
-                JOptionPane.showMessageDialog(null, "El periodo de aumento debe durar a lo sumo un año", "Error", JOptionPane.ERROR_MESSAGE);
+               // JOptionPane.showMessageDialog(null, "El periodo de aumento debe durar a lo sumo un año", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "El periodo de aumento no es valido", "Error", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "El periodo de aumento no es valido", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_periodoAumentoFieldKeyTyped
 
@@ -937,10 +921,10 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         }
         try {
             if (Integer.parseInt(this.diaVencimientoField.getText()) < 1 || 31 < Integer.parseInt(this.diaVencimientoField.getText())) {
-                JOptionPane.showMessageDialog(null, "El dia ingresado no es valido", "Error", JOptionPane.ERROR_MESSAGE);
+                //JOptionPane.showMessageDialog(null, "El dia ingresado no es valido", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "El dia ingresado no es valido", "Error", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "El dia ingresado no es valido", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_diaVencimientoFieldKeyTyped
 
@@ -979,78 +963,80 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
             JOptionPane.showMessageDialog(null, "El periodo de aumento es invalido", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
         float precioInicial;
+        String textipo0 = "Los siguientes valores no pueden ser 0: ";
+        String texttipoInvalid = "Los siguientes valores son invalidos: ";
+        String errorestipoVacio = "";
+        String errorestipoCero= "";
         try {
             precioInicial = Float.parseFloat(this.precioInicialField.getText());
             if (precioInicial == 0) {
-                JOptionPane.showMessageDialog(null, "El precio inicial no puede ser 0", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+                errorestipoCero += "\n - Precio inicial";
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El precio inical es invalido", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            errorestipoVacio += "\n - Precio inicial";
         }
         float senia;
         try {
             senia = Float.parseFloat(this.seniaField.getText());
             if (senia == 0) {
-                JOptionPane.showMessageDialog(null, "La seña no puede ser 0", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+                errorestipoCero += "\n - Seña";
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "La seña ingresada es invalida", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            errorestipoVacio += "\n - Seña";
         }
 
-        float porcentajeAumento;
+        float porcentajeAumento = 0;
         try {
             porcentajeAumento = Float.parseFloat(this.porcentajeAumentoField.getText());
             if (porcentajeAumento == 0) {
-                JOptionPane.showMessageDialog(null, "El porcentaje de aumento no puede ser 0", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+                errorestipoCero += "\n - Porcentaje de aumento";
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El porcentaje de aumento ingresado es invalido", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            errorestipoVacio += "\n - Porcentaje de aumento";
         }
 
-        float aumento;
+        float aumento = 0;
         try {
             aumento = Float.parseFloat(this.aumentoField.getText());
             if (aumento == 0) {
-                JOptionPane.showMessageDialog(null, "El aumento no puede ser 0", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+                errorestipoCero += "\n - Aumento";
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El aumento ingresado es invalido", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            errorestipoVacio += "\n - Aumento";
         }
 
         float deposito;
         try {
             deposito = Float.parseFloat(this.depositoField.getText());
             if (deposito == 0) {
-                JOptionPane.showMessageDialog(null, "El deposito no puede ser 0", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+                errorestipoCero += "\n - Deposito";
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El deposito ingresado es invalido", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+            errorestipoVacio += "\n - Deposito";
         }
 
         float comision;
         try {
             comision = Float.parseFloat(this.comisionField.getText());
             if (comision == 0) {
-                JOptionPane.showMessageDialog(null, "La comision no puede ser 0", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+                errorestipoCero += "\n - Comision";
             }
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "La comision ingresada es invalida", "Error", JOptionPane.ERROR_MESSAGE);
+            errorestipoVacio += "\n - Comision";
+        }
+        if(!errorestipoCero.equals("")){
+            JOptionPane.showMessageDialog(null, textipo0 + errorestipoCero, "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        if(!errorestipoVacio.equals("")){
+            JOptionPane.showMessageDialog(null, texttipoInvalid + errorestipoVacio, "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        senia = 0f;
+        comision = 0f;
+        deposito= 0f;
+        precioInicial= 0f;
         if (senia > comision + deposito + precioInicial) {
             JOptionPane.showMessageDialog(null, "La comision es mayor que el monto total ingresado", "Error", JOptionPane.ERROR_MESSAGE);
             return;
