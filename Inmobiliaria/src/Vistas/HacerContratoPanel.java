@@ -41,7 +41,15 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         this.duenioID = duenioID;
         this.inmuebleID = inmuebleID;
         initComponents();
+        //---------CSS STYLE
         jPanel3.setBorder(StyleCSS.getBordePanel("Seleccionar Cliente-Ingresar Nuevo"));
+        jPanel1.setBorder(StyleCSS.getBordePanel("Datos del Dueño: "));
+        jPanel2.setBorder(StyleCSS.getBordePanel("Cargar Datos de la Operción :"));
+        StyleCSS.setPlaceHolder(fieldNombre, "Nombre");
+        StyleCSS.setPlaceHolder(fieldDoc, "Documento");
+        StyleCSS.setPlaceHolder(fieldTel, "Telefono");
+        StyleCSS.setPlaceHolder(fieldContacto, "Contacto (FB,INSTA)");
+        //---------FIN CSS STYLE
         Cliente aux = (new HacerContratoController(this)).buscarCliente(duenioID);
         Asesor aux2 = (new HacerContratoController(this)).buscarAsesor(aux.getAsesorID());
         (new HacerContratoController(this)).llenarComboBox();
@@ -54,6 +62,7 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         this.labelNombreAse.setText(aux2.getNombre());
         this.botonNuevoCliente.setEnabled(false);
         this.precioInicialField.setText(""+pInicial);
+        this.fechaInicio.setDate(new Date(System.currentTimeMillis()));
     }
 
     /**
@@ -154,14 +163,9 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         setLayout(null);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(231, 60, 0)), "Seleccionar Cliente-Ingresar Nuevo ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         jPanel3.setLayout(null);
-
-        fieldNombre.setText("Nombre");
         jPanel3.add(fieldNombre);
         fieldNombre.setBounds(150, 220, 260, 30);
-
-        fieldContacto.setText("Contacto (FB,INSTA)");
         jPanel3.add(fieldContacto);
         fieldContacto.setBounds(150, 390, 260, 30);
 
@@ -183,7 +187,6 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         jPanel3.add(radioDNI);
         radioDNI.setBounds(180, 260, 100, 30);
 
-        fieldDoc.setText("Documento");
         fieldDoc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 fieldDocKeyTyped(evt);
@@ -192,7 +195,6 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         jPanel3.add(fieldDoc);
         fieldDoc.setBounds(150, 310, 260, 30);
 
-        fieldTel.setText("Telefono");
         fieldTel.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 fieldTelKeyTyped(evt);
@@ -237,12 +239,7 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
 
         tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "ID", "Nombre", "CUIT/DNI"
@@ -294,7 +291,6 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         jSeparator1.setBounds(24, 38, 1210, 0);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(231, 60, 0)), "Cargar Datos de la Operción :", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft JhengHei UI", 0, 14))); // NOI18N
         jPanel2.setLayout(null);
         jPanel2.add(jSeparator2);
         jSeparator2.setBounds(10, 200, 630, 20);
@@ -302,7 +298,7 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel22.setText("Id:");
         jPanel2.add(jLabel22);
-        jLabel22.setBounds(280, 20, 20, 30);
+        jLabel22.setBounds(560, 20, 20, 30);
         jLabel22.getAccessibleContext().setAccessibleName("Asesor que capto la propiedad :");
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -315,9 +311,11 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         jPanel2.add(jLabel27);
         jLabel27.setBounds(30, 220, 152, 14);
 
-        comboAsesores.setEditable(true);
+        comboAsesores.setMaximumSize(null);
+        comboAsesores.setMinimumSize(null);
+        comboAsesores.setName(""); // NOI18N
         jPanel2.add(comboAsesores);
-        comboAsesores.setBounds(310, 220, 310, 22);
+        comboAsesores.setBounds(310, 210, 310, 30);
 
         jLabel30.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel30.setText("Total :");
@@ -354,15 +352,15 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
 
         totalLabel.setText("0.0");
         jPanel2.add(totalLabel);
-        totalLabel.setBounds(130, 470, 190, 16);
+        totalLabel.setBounds(130, 470, 190, 14);
 
         pagadoLabel.setText("0.0");
         jPanel2.add(pagadoLabel);
-        pagadoLabel.setBounds(130, 510, 190, 16);
+        pagadoLabel.setBounds(130, 510, 190, 14);
 
         restanteLabel.setText("0.0");
         jPanel2.add(restanteLabel);
-        restanteLabel.setBounds(130, 550, 190, 16);
+        restanteLabel.setBounds(130, 550, 190, 14);
 
         areaObservacion.setColumns(20);
         areaObservacion.setLineWrap(true);
@@ -422,24 +420,35 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
 
         jLabel49.setText("Meses");
         jPanel2.add(jLabel49);
-        jLabel49.setBounds(220, 310, 50, 16);
+        jLabel49.setBounds(220, 310, 50, 14);
 
-        diaVencimientoField.setText("10");
+        diaVencimientoField.setMaximumSize(null);
+        diaVencimientoField.setMinimumSize(null);
+        diaVencimientoField.setName(""); // NOI18N
+        diaVencimientoField.setPreferredSize(new java.awt.Dimension(20, 20));
         diaVencimientoField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 diaVencimientoFieldKeyTyped(evt);
             }
         });
         jPanel2.add(diaVencimientoField);
-        diaVencimientoField.setBounds(500, 310, 120, 20);
+        diaVencimientoField.setBounds(500, 300, 120, 30);
+
+        fechaInicio.setMaximumSize(null);
+        fechaInicio.setMinimumSize(null);
+        fechaInicio.setName(""); // NOI18N
         jPanel2.add(fechaInicio);
-        fechaInicio.setBounds(160, 260, 95, 22);
+        fechaInicio.setBounds(160, 250, 140, 30);
+
+        fechaFin.setMaximumSize(null);
+        fechaFin.setMinimumSize(null);
+        fechaFin.setName(""); // NOI18N
         jPanel2.add(fechaFin);
-        fechaFin.setBounds(500, 260, 120, 22);
+        fechaFin.setBounds(480, 250, 140, 30);
 
         labelNombreAse.setText("jLabel2");
         jPanel2.add(labelNombreAse);
-        labelNombreAse.setBounds(190, 20, 41, 30);
+        labelNombreAse.setBounds(190, 20, 200, 30);
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel23.setText("Asesor que capto la propiedad :");
@@ -448,7 +457,7 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
 
         labelIdAse.setText("jLabel2");
         jPanel2.add(labelIdAse);
-        labelIdAse.setBounds(300, 20, 41, 30);
+        labelIdAse.setBounds(580, 20, 34, 30);
 
         botonSalir.setText("Salir");
         botonSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -461,15 +470,15 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
 
         comCap.setText("0.0");
         jPanel2.add(comCap);
-        comCap.setBounds(480, 550, 150, 16);
+        comCap.setBounds(480, 550, 150, 14);
 
         comOfi.setText("0.0");
         jPanel2.add(comOfi);
-        comOfi.setBounds(480, 460, 150, 16);
+        comOfi.setBounds(480, 460, 150, 14);
 
         comAseC.setText("0.0");
         jPanel2.add(comAseC);
-        comAseC.setBounds(480, 500, 150, 16);
+        comAseC.setBounds(480, 500, 150, 14);
 
         jLabel42.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel42.setText("Oficina :");
@@ -481,14 +490,17 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         jPanel2.add(jLabel50);
         jLabel50.setBounds(30, 310, 130, 14);
 
-        periodoAumentoField.setText("12");
+        periodoAumentoField.setMaximumSize(null);
+        periodoAumentoField.setMinimumSize(null);
+        periodoAumentoField.setName(""); // NOI18N
+        periodoAumentoField.setPreferredSize(new java.awt.Dimension(20, 20));
         periodoAumentoField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 periodoAumentoFieldKeyTyped(evt);
             }
         });
         jPanel2.add(periodoAumentoField);
-        periodoAumentoField.setBounds(160, 310, 46, 22);
+        periodoAumentoField.setBounds(160, 300, 46, 30);
 
         jLabel36.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel36.setText("Fin del contrato  :");
@@ -504,29 +516,32 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
 
         jLabel2.setText("Comision");
         jPanel2.add(jLabel2);
-        jLabel2.setBounds(530, 350, 60, 16);
+        jLabel2.setBounds(530, 350, 90, 14);
 
         jLabel12.setText("Seña");
         jPanel2.add(jLabel12);
-        jLabel12.setBounds(130, 350, 29, 16);
+        jLabel12.setBounds(130, 350, 90, 14);
 
         jLabel13.setText("Precio Inicial");
         jPanel2.add(jLabel13);
-        jLabel13.setBounds(30, 350, 72, 16);
+        jLabel13.setBounds(30, 350, 90, 14);
 
         jLabel14.setText("% Aumento");
         jPanel2.add(jLabel14);
-        jLabel14.setBounds(230, 350, 67, 16);
+        jLabel14.setBounds(230, 350, 90, 14);
 
         jLabel15.setText("1° Aumento");
         jPanel2.add(jLabel15);
-        jLabel15.setBounds(330, 350, 90, 16);
+        jLabel15.setBounds(330, 350, 90, 14);
 
         jLabel16.setText("Deposito");
         jPanel2.add(jLabel16);
-        jLabel16.setBounds(430, 350, 49, 16);
+        jLabel16.setBounds(430, 350, 90, 14);
 
-        porcentajeAumentoField.setText("0");
+        porcentajeAumentoField.setMaximumSize(null);
+        porcentajeAumentoField.setMinimumSize(null);
+        porcentajeAumentoField.setName(""); // NOI18N
+        porcentajeAumentoField.setPreferredSize(new java.awt.Dimension(20, 20));
         porcentajeAumentoField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 porcentajeAumentoFieldFocusLost(evt);
@@ -538,9 +553,12 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
             }
         });
         jPanel2.add(porcentajeAumentoField);
-        porcentajeAumentoField.setBounds(230, 380, 90, 22);
+        porcentajeAumentoField.setBounds(230, 370, 90, 30);
 
-        aumentoField.setText("0");
+        aumentoField.setMaximumSize(null);
+        aumentoField.setMinimumSize(null);
+        aumentoField.setName(""); // NOI18N
+        aumentoField.setPreferredSize(new java.awt.Dimension(20, 20));
         aumentoField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aumentoFieldActionPerformed(evt);
@@ -552,9 +570,12 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
             }
         });
         jPanel2.add(aumentoField);
-        aumentoField.setBounds(330, 380, 90, 22);
+        aumentoField.setBounds(330, 370, 90, 30);
 
-        comisionField.setText("0");
+        comisionField.setMaximumSize(null);
+        comisionField.setMinimumSize(null);
+        comisionField.setName(""); // NOI18N
+        comisionField.setPreferredSize(new java.awt.Dimension(20, 20));
         comisionField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 comisionFieldFocusLost(evt);
@@ -566,9 +587,12 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
             }
         });
         jPanel2.add(comisionField);
-        comisionField.setBounds(530, 380, 90, 22);
+        comisionField.setBounds(530, 370, 90, 30);
 
-        depositoField.setText("0");
+        depositoField.setMaximumSize(null);
+        depositoField.setMinimumSize(null);
+        depositoField.setName(""); // NOI18N
+        depositoField.setPreferredSize(new java.awt.Dimension(20, 20));
         depositoField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 depositoFieldFocusLost(evt);
@@ -580,9 +604,12 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
             }
         });
         jPanel2.add(depositoField);
-        depositoField.setBounds(430, 380, 90, 22);
+        depositoField.setBounds(430, 370, 90, 30);
 
-        seniaField.setText("0");
+        seniaField.setMaximumSize(null);
+        seniaField.setMinimumSize(null);
+        seniaField.setName(""); // NOI18N
+        seniaField.setPreferredSize(new java.awt.Dimension(20, 20));
         seniaField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 seniaFieldFocusLost(evt);
@@ -594,9 +621,12 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
             }
         });
         jPanel2.add(seniaField);
-        seniaField.setBounds(130, 380, 90, 22);
+        seniaField.setBounds(130, 370, 90, 30);
 
-        precioInicialField.setText("0");
+        precioInicialField.setMaximumSize(null);
+        precioInicialField.setMinimumSize(null);
+        precioInicialField.setName(""); // NOI18N
+        precioInicialField.setPreferredSize(new java.awt.Dimension(20, 20));
         precioInicialField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 precioInicialFieldFocusLost(evt);
@@ -608,13 +638,12 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
             }
         });
         jPanel2.add(precioInicialField);
-        precioInicialField.setBounds(30, 380, 90, 22);
+        precioInicialField.setBounds(30, 370, 90, 30);
 
         add(jPanel2);
-        jPanel2.setBounds(470, 20, 650, 670);
+        jPanel2.setBounds(470, 30, 650, 660);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(231, 60, 0)), "Datos del Dueño: ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 13))); // NOI18N
         jPanel1.setLayout(null);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -772,6 +801,9 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
     }//GEN-LAST:event_precioInicialFieldKeyTyped
 
     private void precioInicialFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_precioInicialFieldFocusLost
+        if(precioInicialField.getText().equals("")){
+            precioInicialField.setText("0");
+        }
         try {
             this.llenarLabels();
         } catch (NumberFormatException ex) {
@@ -787,6 +819,9 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
     }//GEN-LAST:event_seniaFieldKeyTyped
 
     private void seniaFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_seniaFieldFocusLost
+        if(seniaField.getText().equals("")){
+            seniaField.setText("0");
+        }
         try {
             this.llenarLabels();
         } catch (NumberFormatException ex) {
@@ -802,6 +837,9 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
     }//GEN-LAST:event_depositoFieldKeyTyped
 
     private void depositoFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_depositoFieldFocusLost
+        if(depositoField.getText().equals("")){
+            depositoField.setText("0");
+        }
         try {
             this.llenarLabels();
         } catch (NumberFormatException ex) {
@@ -817,6 +855,9 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
     }//GEN-LAST:event_comisionFieldKeyTyped
 
     private void comisionFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_comisionFieldFocusLost
+        if(comisionField.getText().equals("")){
+            comisionField.setText("0");
+        }
         try {
             this.llenarLabels();
         } catch (NumberFormatException ex) {

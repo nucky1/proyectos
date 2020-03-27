@@ -373,10 +373,11 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
             if(aux.getOperacion()!=1){
                 if(aux.getEstado()==1 && (new InmuebleController(this)).estaAdministrado(aux.getDuenoID())){
                     jDialog1 = new javax.swing.JDialog();
-                    jDialog1.setSize(1450, 800);
+                    jDialog1.setSize(1125, 710);
                     jDialog1.setResizable(false);
+                    jDialog1.setUndecorated(true);
                     jDialog1.setTitle("Cargar Contrato"); 
-                    jDialog1.setBounds(25, 50, 1150, 800);
+                    jDialog1.setBounds(90,10 , 1125, 710);
                     jDialog1.setModal(true); 
                     int clienteID = aux.getDuenoID();
                     int inmuebleID = aux.getId();
