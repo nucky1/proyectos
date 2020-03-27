@@ -36,6 +36,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         init2();               
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
+        
     }
 
     /**

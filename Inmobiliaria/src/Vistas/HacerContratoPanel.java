@@ -41,6 +41,7 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         this.duenioID = duenioID;
         this.inmuebleID = inmuebleID;
         initComponents();
+        jPanel3.setBorder(StyleCSS.getBordePanel("Seleccionar Cliente-Ingresar Nuevo"));
         Cliente aux = (new HacerContratoController(this)).buscarCliente(duenioID);
         Asesor aux2 = (new HacerContratoController(this)).buscarAsesor(aux.getAsesorID());
         (new HacerContratoController(this)).llenarComboBox();

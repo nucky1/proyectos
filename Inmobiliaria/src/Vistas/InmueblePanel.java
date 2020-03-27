@@ -7,6 +7,7 @@ package Vistas;
 
 import Controllers.InmuebleController;
 import Modelo.Inmueble;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -292,6 +293,7 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
                 if(aux.getEstado()==1 && (new InmuebleController(this)).estaAdministrado(aux.getDuenoID())){
                     jDialog1 = new javax.swing.JDialog();
                     jDialog1.setSize(1450, 800);
+                    jDialog1.setResizable(false);
                     jDialog1.setTitle("Cargar Contrato"); 
                     jDialog1.setBounds(25, 50, 1150, 800);
                     jDialog1.setModal(true); 
@@ -305,8 +307,11 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
                     jDialog1 = new javax.swing.JDialog();
                     jDialog1.setSize(1450, 800);
                     jDialog1.setTitle("Cargar Contrato"); 
+                    jDialog1.setLocationRelativeTo(this);
+                    jDialog1.setResizable(false);
                     jDialog1.setBounds(25, 50, 1125, 365);
                     jDialog1.setModal(true);
+                    jDialog1.setForeground(Color.black);
                     int clienteID = aux.getDuenoID();
                     int inmuebleID = aux.getId();
                     jDialog1.add(new HacerContratoSinADM(clienteID,inmuebleID));
