@@ -1106,9 +1106,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labelNombre">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="11" style="1"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Francisco"/>
           </Properties>
           <Constraints>
@@ -1119,9 +1116,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labelDni">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="11" style="1"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="40823458"/>
           </Properties>
           <Constraints>
@@ -1132,9 +1126,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labelTel">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="11" style="1"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="2664842481"/>
           </Properties>
           <Constraints>
@@ -1145,9 +1136,6 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labelContacto">
           <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Tahoma" size="11" style="1"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="rosasfran.97@gmail"/>
           </Properties>
           <Constraints>
