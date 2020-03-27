@@ -377,7 +377,7 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
                     jDialog1.setResizable(false);
                     jDialog1.setUndecorated(true);
                     jDialog1.setTitle("Cargar Contrato"); 
-                    jDialog1.setBounds(90,10 , 1125, 710);
+                    jDialog1.setBounds(90,10 , 1125, 720);
                     jDialog1.setModal(true); 
                     int clienteID = aux.getDuenoID();
                     int inmuebleID = aux.getId();
@@ -392,12 +392,12 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
                     jDialog1.setLocationRelativeTo(this);
                     jDialog1.setResizable(false);
                     jDialog1.setUndecorated(true);
-                    jDialog1.setBounds(25, 50, 1125, 365);
+                    jDialog1.setBounds(90, 150, 1125, 385);
                     jDialog1.setModal(true);
                     jDialog1.setForeground(Color.black);
                     int clienteID = aux.getDuenoID();
                     int inmuebleID = aux.getId();
-                    jDialog1.add(new HacerContratoSinADM(clienteID,inmuebleID));
+                    jDialog1.add(new HacerContratoSinADM(clienteID,inmuebleID,aux.getPrecio()));
                     jDialog1.setVisible(true);
                     return;
                 }

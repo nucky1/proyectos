@@ -30,7 +30,7 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
     /**
      * Creates new form HacerContratoSinADM
      */
-    public HacerContratoSinADM(int duenioID, int inmuebleID) {
+    public HacerContratoSinADM(int duenioID, int inmuebleID,float pInicial) {
         this.duenioID = duenioID;
         this.inmuebleID = inmuebleID;
         initComponents();
@@ -38,15 +38,13 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
           //this.setBorder(StyleCSS.getBordePanel("Seleccionar Cliente-Ingresar Nuevo"));
           jPanel1.setBorder(StyleCSS.getBordePanel("Datos del Dueño: "));
           jPanel2.setBorder(StyleCSS.getBordePanel("Cargar Datos de la Operción :"));
-        StyleCSS.setPlaceHolder(precioInicialField, "0");
         StyleCSS.setPlaceHolder(seniaField, "0");
         StyleCSS.setPlaceHolder(depositoField, "0");
         StyleCSS.setPlaceHolder(comisionField, "0");
         //---------FIN CSS STYLE
         Cliente aux = (new HacerContratoController(this)).buscarCliente(duenioID);
         Asesor aux2 = (new HacerContratoController(this)).buscarAsesor(aux.getAsesorID());
-        (new HacerContratoController(this)).llenarComboBox();
-
+        (new HacerContratoController(this)).llenarComboBox(); 
         this.asesorID = aux2.getId();
         this.labelNombre.setText(aux.getNombre());
         this.labelContacto.setText(aux.getContacto());
@@ -54,8 +52,60 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
         this.labelTel.setText(Long.toString(aux.getTel()));
         this.labelIdAse.setText(Integer.toString(aux2.getId()));
         this.labelNombreAse.setText(aux2.getNombre());
+        this.precioInicialField.setText(""+pInicial);
     }
+    public boolean controlCampos(){
+        String textipo0 = "Los siguientes valores no pueden ser 0: ";
+        String texttipoInvalid = "Los siguientes valores son invalidos: ";
+        String errorestipoVacio = "";
+        String errorestipoCero= "";
+        float senia;
+        try {
+            senia = Float.parseFloat(this.seniaField.getText());
+            if (senia == 0) {
+                errorestipoCero += "\n - Seña";
+            }
+        } catch (NumberFormatException e) {
+            errorestipoVacio += "\n - Seña";
+        }
+        float pInicial;
+        try {
+            pInicial = Float.parseFloat(this.precioInicialField.getText());
+            if (pInicial == 0) {
+                errorestipoCero += "\n - Precio Inicial";
+            }
+        } catch (NumberFormatException e) {
+            errorestipoVacio += "\n - Precio Inicial";
+        }
+        float deposito;
+        try {
+            deposito = Float.parseFloat(this.depositoField.getText());
+            if (deposito == 0) {
+                errorestipoCero += "\n - Deposito";
+            }
+        } catch (NumberFormatException e) {
+            errorestipoVacio += "\n - Deposito";
+        }
 
+        float comision;
+        try {
+            comision = Float.parseFloat(this.comisionField.getText());
+            if (comision == 0) {
+                errorestipoCero += "\n - Comision";
+            }
+        } catch (NumberFormatException e) {
+            errorestipoVacio += "\n - Comision";
+        }
+        if(!errorestipoCero.equals("")){
+            JOptionPane.showMessageDialog(null, textipo0 + errorestipoCero, "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        if(!errorestipoVacio.equals("")){
+            JOptionPane.showMessageDialog(null, texttipoInvalid + errorestipoVacio, "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        return true;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -119,6 +169,7 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
         jLabel48 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         setLayout(null);
 
         botonSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/CruzSalir.PNG"))); // NOI18N
@@ -128,7 +179,7 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
             }
         });
         add(botonSalir);
-        botonSalir.setBounds(1080, 0, 30, 30);
+        botonSalir.setBounds(1060, 10, 30, 30);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(231, 60, 0), 2, true), "Cargar Datos del Contrato", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft YaHei UI", 1, 16))); // NOI18N
@@ -421,15 +472,16 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelNombreAse, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelIdAse, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel39))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel39)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel23, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(labelNombreAse, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(labelIdAse, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
@@ -442,71 +494,27 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
                         .addGap(31, 31, 31)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 5, Short.MAX_VALUE))
         );
 
         add(jPanel3);
-        jPanel3.setBounds(10, 20, 1110, 340);
+        jPanel3.setBounds(10, 30, 1110, 350);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        float precioInicial;
-        try {
-            precioInicial = Float.parseFloat(this.precioInicialField.getText());
-            if (precioInicial == 0) {
-                JOptionPane.showMessageDialog(null, "El precio inicial no puede ser 0", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El precio inical es invalido", "Error", JOptionPane.ERROR_MESSAGE);
+        if(controlCampos()){
+            float precioInicial = Float.parseFloat(this.precioInicialField.getText());
+            float senia = Float.parseFloat(this.seniaField.getText());
+            float deposito = Float.parseFloat(this.depositoField.getText());
+            float comision = Float.parseFloat(this.comisionField.getText());
+            if (senia > comision + deposito + precioInicial) {
+            JOptionPane.showMessageDialog(null, "La seña es mayor que el monto total ingresado", "Error", JOptionPane.ERROR_MESSAGE);
             return;
-        }
-        float senia;
-        try {
-            senia = Float.parseFloat(this.seniaField.getText());
-            if (senia == 0) {
-                JOptionPane.showMessageDialog(null, "La seña no puede ser 0", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "La seña ingresada es invalida", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        float deposito;
-        try {
-            deposito = Float.parseFloat(this.depositoField.getText());
-            if (deposito == 0) {
-                JOptionPane.showMessageDialog(null, "El deposito no puede ser 0", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El deposito ingresado es invalido", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        float comision;
-        try {
-            comision = Float.parseFloat(this.comisionField.getText());
-            if (comision == 0) {
-                JOptionPane.showMessageDialog(null, "La comision no puede ser 0", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "La comision ingresada es invalida", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        if (senia > comision + deposito + precioInicial) {
-            JOptionPane.showMessageDialog(null, "La comision es mayor que el monto total ingresado", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        int asesorIDCliente = mapA.get(this.comboAsesores.getSelectedIndex()).getId();
-
+        } 
+        int asesorIDCliente = mapA.get(this.comboAsesores.getSelectedIndex()).getId(); 
         Contrato aux2 = new Contrato(0, new Date(), comision, "", -1, this.inmuebleID, this.duenioID, asesorIDCliente, 1, false, 0, 0, new Date(), 0, new Date());
         (new HacerContratoController(this)).alta2(aux2);
-
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
@@ -518,7 +526,7 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
         try {
             this.llenarLabels();
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "La comision es invalida", "Error", JOptionPane.ERROR_MESSAGE);
+           // JOptionPane.showMessageDialog(null, "La comision es invalida", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_comisionFieldFocusLost
 
@@ -533,7 +541,7 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
         try {
             this.llenarLabels();
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "El deposito es invalido", "Error", JOptionPane.ERROR_MESSAGE);
+           // JOptionPane.showMessageDialog(null, "El deposito es invalido", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_depositoFieldFocusLost
 
@@ -548,7 +556,7 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
         try {
             this.llenarLabels();
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "La seña es invalida", "Error", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "La seña es invalida", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_seniaFieldFocusLost
 
@@ -563,7 +571,7 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
         try {
             this.llenarLabels();
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "El precio inicial es invalido", "Error", JOptionPane.ERROR_MESSAGE);
+            //JOptionPane.showMessageDialog(null, "El precio inicial es invalido", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_precioInicialFieldFocusLost
 

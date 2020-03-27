@@ -151,6 +151,7 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         precioInicialField = new javax.swing.JTextField();
         jLabel46 = new javax.swing.JLabel();
         jLabel51 = new javax.swing.JLabel();
+        botonSalir1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
@@ -302,7 +303,7 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel22.setText("Id:");
         jPanel2.add(jLabel22);
-        jLabel22.setBounds(560, 20, 20, 30);
+        jLabel22.setBounds(530, 20, 20, 30);
         jLabel22.getAccessibleContext().setAccessibleName("Asesor que capto la propiedad :");
 
         jLabel24.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -461,7 +462,7 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
 
         labelIdAse.setText("jLabel2");
         jPanel2.add(labelIdAse);
-        labelIdAse.setBounds(580, 20, 34, 30);
+        labelIdAse.setBounds(550, 20, 34, 30);
 
         botonSalir.setText("Salir");
         botonSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -653,6 +654,15 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         jLabel51.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/AsesorCliente.PNG"))); // NOI18N
         jPanel2.add(jLabel51);
         jLabel51.setBounds(30, 210, 30, 30);
+
+        botonSalir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/CruzSalir.PNG"))); // NOI18N
+        botonSalir1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalir1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(botonSalir1);
+        botonSalir1.setBounds(600, 20, 30, 30);
 
         add(jPanel2);
         jPanel2.setBounds(470, 30, 650, 660);
@@ -1038,16 +1048,19 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         deposito= 0f;
         precioInicial= 0f;
         if (senia > comision + deposito + precioInicial) {
-            JOptionPane.showMessageDialog(null, "La comision es mayor que el monto total ingresado", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "La seña es mayor que el monto total ingresado", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
         int clienteID = mapC.get(this.tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 0)).getId();
         int asesorIDCliente = mapA.get(this.comboAsesores.getSelectedIndex()).getId();
-
         Contrato nuevo = new Contrato(0, new Date(), comision, observaciones, clienteID, this.inmuebleID, this.duenioID, asesorIDCliente, 1, false, porcentajeAumento, aumento, this.fechaFin.getDate(), Integer.parseInt(this.diaVencimientoField.getText()), this.fechaInicio.getDate());
         (new HacerContratoController(this)).alta(nuevo, senia, precioInicial,periodo);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void botonSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir1ActionPerformed
+        Window w = SwingUtilities.getWindowAncestor(this);
+        w.dispose();
+    }//GEN-LAST:event_botonSalir1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1056,6 +1069,7 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
     private javax.swing.JButton botonAlta;
     private javax.swing.JButton botonNuevoCliente;
     private javax.swing.JButton botonSalir;
+    private javax.swing.JButton botonSalir1;
     private javax.swing.JLabel comAseC;
     private javax.swing.JLabel comCap;
     private javax.swing.JLabel comOfi;
