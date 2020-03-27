@@ -77,9 +77,9 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
         tablaInmueble = new javax.swing.JTable();
         jcbEstado = new javax.swing.JComboBox<>();
         jcbHabitaciones = new javax.swing.JComboBox<>();
+        botonListar = new javax.swing.JButton();
         jcbOperacion = new javax.swing.JComboBox<>();
         jcbTipoInmueble = new javax.swing.JComboBox<>();
-        botonListar = new javax.swing.JButton();
         spinDesde = new javax.swing.JSpinner();
         jLabel2 = new javax.swing.JLabel();
         spinHasta = new javax.swing.JSpinner();
@@ -87,6 +87,13 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
         botonAlquilar = new javax.swing.JButton();
         botonDetalles = new javax.swing.JButton();
         jcbZona = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
 
         jLabel4.setText("Soy un JDIALOG");
 
@@ -171,37 +178,17 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
         }
 
         add(jScrollPane1);
-        jScrollPane1.setBounds(20, 180, 1040, 380);
+        jScrollPane1.setBounds(200, 150, 1050, 410);
 
         jcbEstado.setBackground(new java.awt.Color(255, 200, 0));
         jcbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Estado", "Disponible", "No disponible", "Reservado", "Ocupado" }));
         add(jcbEstado);
-        jcbEstado.setBounds(800, 110, 130, 40);
+        jcbEstado.setBounds(80, 300, 110, 40);
 
         jcbHabitaciones.setBackground(new java.awt.Color(255, 200, 0));
         jcbHabitaciones.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Habitaciones", "1 Habitacion", "2 Habitaciones", "3 Habitaciones", "4 Habitaciones", "5 o más Hab." }));
         add(jcbHabitaciones);
-        jcbHabitaciones.setBounds(940, 110, 120, 40);
-
-        jcbOperacion.setBackground(new java.awt.Color(255, 200, 0));
-        jcbOperacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Operacion", "Vender", "Alquilar", "Vender o Alquilar" }));
-        jcbOperacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbOperacionActionPerformed(evt);
-            }
-        });
-        add(jcbOperacion);
-        jcbOperacion.setBounds(660, 110, 130, 40);
-
-        jcbTipoInmueble.setBackground(new java.awt.Color(255, 200, 0));
-        jcbTipoInmueble.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo de Inmueble", "Casa", "Departamento", "Local", "Terreno" }));
-        jcbTipoInmueble.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbTipoInmuebleActionPerformed(evt);
-            }
-        });
-        add(jcbTipoInmueble);
-        jcbTipoInmueble.setBounds(510, 110, 140, 40);
+        jcbHabitaciones.setBounds(80, 360, 110, 40);
 
         botonListar.setBackground(new java.awt.Color(255, 200, 0));
         botonListar.setText("Buscar");
@@ -212,31 +199,50 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
             }
         });
         add(botonListar);
-        botonListar.setBounds(1090, 110, 130, 40);
+        botonListar.setBounds(30, 560, 150, 50);
+
+        jcbOperacion.setBackground(new java.awt.Color(255, 200, 0));
+        jcbOperacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Operacion", "Vender", "Alquilar", "Vender o Alquilar" }));
+        jcbOperacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbOperacionActionPerformed(evt);
+            }
+        });
+        add(jcbOperacion);
+        jcbOperacion.setBounds(80, 240, 110, 40);
+
+        jcbTipoInmueble.setBackground(new java.awt.Color(255, 200, 0));
+        jcbTipoInmueble.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tipo de Inmueble", "Casa", "Departamento", "Local", "Terreno" }));
+        jcbTipoInmueble.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbTipoInmuebleActionPerformed(evt);
+            }
+        });
+        add(jcbTipoInmueble);
+        jcbTipoInmueble.setBounds(80, 180, 110, 40);
 
         spinDesde.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(spinDesde);
-        spinDesde.setBounds(90, 110, 80, 40);
+        spinDesde.setBounds(300, 110, 90, 30);
 
         jLabel2.setBackground(new java.awt.Color(255, 200, 0));
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("<");
-        jLabel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(jLabel2);
-        jLabel2.setBounds(170, 110, 30, 40);
+        jLabel2.setBounds(410, 110, 20, 30);
 
         spinHasta.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(spinHasta);
-        spinHasta.setBounds(200, 110, 80, 40);
+        spinHasta.setBounds(450, 110, 90, 30);
 
         jLabel3.setBackground(new java.awt.Color(255, 200, 0));
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Precio: ");
-        jLabel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/CasitaLupa.PNG"))); // NOI18N
+        jLabel3.setText("Filtros de Buscqueda");
         add(jLabel3);
-        jLabel3.setBounds(20, 110, 70, 40);
+        jLabel3.setBounds(10, 110, 180, 30);
 
         botonAlquilar.setBackground(new java.awt.Color(255, 100, 0));
         botonAlquilar.setText("Alquilar");
@@ -246,7 +252,7 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
             }
         });
         add(botonAlquilar);
-        botonAlquilar.setBounds(1100, 480, 130, 70);
+        botonAlquilar.setBounds(1030, 570, 130, 40);
 
         botonDetalles.setBackground(new java.awt.Color(255, 200, 0));
         botonDetalles.setText("Informacion");
@@ -256,7 +262,7 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
             }
         });
         add(botonDetalles);
-        botonDetalles.setBounds(1100, 370, 130, 70);
+        botonDetalles.setBounds(860, 570, 130, 40);
 
         jcbZona.setBackground(new java.awt.Color(255, 200, 0));
         jcbZona.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Zona", "Centro", "Sur", "Norte", "Este", "Oeste", "Universitaria" }));
@@ -267,7 +273,52 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
             }
         });
         add(jcbZona);
-        jcbZona.setBounds(320, 110, 120, 40);
+        jcbZona.setBounds(80, 420, 110, 40);
+
+        jLabel6.setBackground(new java.awt.Color(255, 200, 0));
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Ubicacion.PNG"))); // NOI18N
+        add(jLabel6);
+        jLabel6.setBounds(10, 420, 60, 40);
+        add(jSeparator1);
+        jSeparator1.setBounds(10, 150, 180, 20);
+
+        jLabel7.setBackground(new java.awt.Color(255, 200, 0));
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Casita$.PNG"))); // NOI18N
+        jLabel7.setText("Precio");
+        add(jLabel7);
+        jLabel7.setBounds(200, 110, 110, 30);
+
+        jLabel8.setBackground(new java.awt.Color(255, 200, 0));
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/TipoInmueble.PNG"))); // NOI18N
+        add(jLabel8);
+        jLabel8.setBounds(10, 180, 60, 40);
+
+        jLabel9.setBackground(new java.awt.Color(255, 200, 0));
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Operacion.PNG"))); // NOI18N
+        add(jLabel9);
+        jLabel9.setBounds(10, 240, 60, 40);
+
+        jLabel10.setBackground(new java.awt.Color(255, 200, 0));
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Llave.PNG"))); // NOI18N
+        add(jLabel10);
+        jLabel10.setBounds(10, 300, 60, 40);
+
+        jLabel11.setBackground(new java.awt.Color(255, 200, 0));
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Camita.PNG"))); // NOI18N
+        add(jLabel11);
+        jLabel11.setBounds(10, 360, 60, 40);
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonListarAction(int desdite,int hastita, int zonita, int tipito, int operacioncita, int estadito, int habitacioncita){
@@ -309,6 +360,7 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
                     jDialog1.setTitle("Cargar Contrato"); 
                     jDialog1.setLocationRelativeTo(this);
                     jDialog1.setResizable(false);
+                    jDialog1.setUndecorated(true);
                     jDialog1.setBounds(25, 50, 1125, 365);
                     jDialog1.setModal(true);
                     jDialog1.setForeground(Color.black);
@@ -362,10 +414,17 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
     private javax.swing.JDialog jDialog1;
     private javax.swing.JDialog jDialog2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JComboBox<String> jcbEstado;
     private javax.swing.JComboBox<String> jcbHabitaciones;
     private javax.swing.JComboBox<String> jcbOperacion;
