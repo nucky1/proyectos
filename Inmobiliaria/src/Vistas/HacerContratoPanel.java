@@ -127,7 +127,6 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         labelNombreAse = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
         labelIdAse = new javax.swing.JLabel();
-        botonSalir = new javax.swing.JButton();
         comCap = new javax.swing.JLabel();
         comOfi = new javax.swing.JLabel();
         comAseC = new javax.swing.JLabel();
@@ -409,14 +408,15 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         jPanel2.add(jLabel47);
         jLabel47.setBounds(460, 450, 18, 40);
 
-        jButton2.setText("Guardar Datos ");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/ConfirmarC.PNG"))); // NOI18N
+        jButton2.setText("Confirmar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
         jPanel2.add(jButton2);
-        jButton2.setBounds(380, 610, 130, 30);
+        jButton2.setBounds(350, 597, 170, 43);
 
         jLabel48.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel48.setText("Dia venc. del Mes:");
@@ -463,15 +463,6 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         labelIdAse.setText("jLabel2");
         jPanel2.add(labelIdAse);
         labelIdAse.setBounds(550, 20, 34, 30);
-
-        botonSalir.setText("Salir");
-        botonSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonSalirActionPerformed(evt);
-            }
-        });
-        jPanel2.add(botonSalir);
-        botonSalir.setBounds(530, 610, 79, 30);
 
         comCap.setText("0.0");
         jPanel2.add(comCap);
@@ -919,11 +910,6 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
         }
     }//GEN-LAST:event_periodoAumentoFieldKeyTyped
 
-    private void botonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalirActionPerformed
-        Window w = SwingUtilities.getWindowAncestor(this);
-        w.dispose();
-    }//GEN-LAST:event_botonSalirActionPerformed
-
     private void diaVencimientoFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_diaVencimientoFieldKeyTyped
         char c = evt.getKeyChar();
         if (!Character.isDigit(c)) {
@@ -1068,7 +1054,6 @@ public class HacerContratoPanel extends javax.swing.JPanel implements HacerContr
     private javax.swing.JTextField aumentoField;
     private javax.swing.JButton botonAlta;
     private javax.swing.JButton botonNuevoCliente;
-    private javax.swing.JButton botonSalir;
     private javax.swing.JButton botonSalir1;
     private javax.swing.JLabel comAseC;
     private javax.swing.JLabel comCap;

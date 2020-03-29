@@ -159,7 +159,6 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
         seniaField = new javax.swing.JTextField();
         precioInicialField = new javax.swing.JTextField();
         jLabel46 = new javax.swing.JLabel();
-        botonSalir1 = new javax.swing.JButton();
         labelNombreAse = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -304,14 +303,15 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
         jPanel2.add(jLabel47);
         jLabel47.setBounds(510, 130, 18, 40);
 
-        jButton2.setText("Guardar Datos ");
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/ConfirmarC.PNG"))); // NOI18N
+        jButton2.setText("Confirmar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
         jPanel2.add(jButton2);
-        jButton2.setBounds(360, 260, 130, 30);
+        jButton2.setBounds(370, 250, 160, 43);
 
         comCap.setText("0.0");
         jPanel2.add(comCap);
@@ -409,15 +409,6 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
         jLabel46.setText("Montos :");
         jPanel2.add(jLabel46);
         jLabel46.setBounds(50, 100, 100, 20);
-
-        botonSalir1.setText("Salir");
-        botonSalir1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonSalir1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(botonSalir1);
-        botonSalir1.setBounds(510, 260, 79, 30);
 
         labelNombreAse.setText("jLabel2");
 
@@ -582,14 +573,9 @@ public class HacerContratoSinADM extends javax.swing.JPanel implements HacerCont
         }
     }//GEN-LAST:event_precioInicialFieldKeyTyped
 
-    private void botonSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonSalir1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonSalir;
-    private javax.swing.JButton botonSalir1;
     private javax.swing.JLabel comAseC;
     private javax.swing.JLabel comCap;
     private javax.swing.JLabel comOfi;

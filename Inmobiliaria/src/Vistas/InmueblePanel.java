@@ -38,8 +38,6 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
         smDesde.setValue(0);
         spinDesde.setModel(smDesde);
         spinHasta.setModel(smHasta);
-        this.botonDetalles.setEnabled(false);
-        
         tipoInmueble = new HashMap<>();
         tipoInmueble.put(0,null);
         tipoInmueble.put(1,"Casa");
@@ -70,8 +68,6 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
 
         jDialog1 = new javax.swing.JDialog();
         jDialog2 = new javax.swing.JDialog();
-        jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaInmueble = new javax.swing.JTable();
@@ -98,37 +94,15 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
         jLabel5 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
 
-        jLabel4.setText("Soy un JDIALOG");
-
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jDialog2Layout = new javax.swing.GroupLayout(jDialog2.getContentPane());
         jDialog2.getContentPane().setLayout(jDialog2Layout);
         jDialog2Layout.setHorizontalGroup(
             jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDialog2Layout.createSequentialGroup()
-                .addGroup(jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDialog2Layout.createSequentialGroup()
-                        .addGap(164, 164, 164)
-                        .addComponent(jLabel4))
-                    .addGroup(jDialog2Layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(jButton1)))
-                .addContainerGap(157, Short.MAX_VALUE))
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         jDialog2Layout.setVerticalGroup(
             jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jDialog2Layout.createSequentialGroup()
-                .addGap(141, 141, 141)
-                .addComponent(jLabel4)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addContainerGap(104, Short.MAX_VALUE))
+            .addGap(0, 300, Short.MAX_VALUE)
         );
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -412,10 +386,12 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
 
     private void botonDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDetallesActionPerformed
         if(tablaInmueble.getSelectedRow()!=-1){
+            jDialog2 = new javax.swing.JDialog();
             jDialog2.setSize(1450, 800);
             jDialog2.setTitle("Informacion completa del Inmueble."); 
             jDialog2.setBounds(25, 50, 1250, 1200);
             jDialog2.setModal(true); 
+            jDialog2.add(new ABMInmueble());
             jDialog2.setVisible(true); 
         }
     }//GEN-LAST:event_botonDetallesActionPerformed
@@ -427,10 +403,6 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
     private void jcbOperacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbOperacionActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jcbOperacionActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jDialog2.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jcbZonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbZonaActionPerformed
         // TODO add your handling code here:
@@ -446,7 +418,6 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
     private javax.swing.JButton botonAlquilar1;
     private javax.swing.JButton botonDetalles;
     private javax.swing.JButton botonListar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JDialog jDialog2;
     private javax.swing.JLabel jLabel1;
@@ -455,7 +426,6 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
