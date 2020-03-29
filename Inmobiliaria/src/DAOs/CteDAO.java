@@ -14,8 +14,9 @@ import java.util.ArrayList;
  */
 public interface CteDAO extends CRUD<Cliente> {
     ArrayList<Inmueble> getPropiedades(int id);
-    ArrayList<Inmueble> getAlquilando(int id);
+    ArrayList<Inmueble> getInmueblesDueño(int id);
     ArrayList<Inmueble> getAdministrando(int id);
     ArrayList<Cliente> listarPorNombre(String nombre);
     ArrayList<Cliente> listarDueniosPorNombre(String nombre);
+    ArrayList<Inmueble> getInmueblesAlquilando(int id);
 }

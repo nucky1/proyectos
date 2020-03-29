@@ -6,14 +6,9 @@
 package Vistas;
 
 import Controllers.ClienteController;
-import Controllers.HacerContratoController;
-import Modelo.Asesor;
-import Modelo.Cliente;
+import Modelo.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -24,17 +19,30 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
     private DefaultTableModel tabla;
     private HashMap<Integer,Cliente> mapC =null;
     private HashMap<Integer,Asesor> mapA=null;
+    private HashMap<Integer,Inmueble> mapI=null;
     private int pos; 
     private Cliente clienteSelec=null; 
+    private boolean edit = false;
+    //Reglas De composicion    
+    private ClienteController mClienteController = new ClienteController(this);
+    
     public ClientePanel() {
         initComponents();
-        (new ClienteController(this)).llenarComboBox(); 
+        //------Style css
+        jPanel3.setBorder(StyleCSS.getBordePanel("Seleccione un Cliente (si no ingresar nuevo) "));
+        jPanel4.setBorder(StyleCSS.getBordePanel("INMUEBLES QUE ALQUILA"));
+        jPanel5.setBorder(StyleCSS.getBordePanel("INMUEBLES DEL PROPIETARIO"));
+        StyleCSS.setPlaceHolder(fieldNombre, "Juanito Mignari");
+        StyleCSS.setPlaceHolder(fieldDoc, "40597999");
+        StyleCSS.setPlaceHolder(fieldContacto, "Contacto (FB,INSTA)");
+        StyleCSS.setPlaceHolder(fieldTel, "2664880282");
+        //-----------
+        mClienteController.llenarTabla("");
+        mClienteController.llenarComboBox(); 
     } 
     private String controlCampos() { 
-        String error = "";  
-        Pattern patron = Pattern.compile("[^A-Za-z ]");
-        Matcher encaja = patron.matcher(fieldNombre.getText());
-        if (encaja.find() || fieldNombre.getText().isEmpty()) {
+        String error = ""; 
+        if ( fieldNombre.getText().isEmpty()) {
             error = error+ "-El nombre ingresado no es valido\n";  
         }  
         try {
@@ -72,7 +80,7 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
         radioDNI = new javax.swing.JRadioButton();
         fieldDoc = new javax.swing.JTextField();
         fieldTel = new javax.swing.JTextField();
-        botonAlta = new javax.swing.JButton();
+        botonEliminar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -81,11 +89,11 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
         tablaClientes = new javax.swing.JTable();
         jBuscarPorNom = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        botonAltaC = new javax.swing.JButton();
-        botonAlta3 = new javax.swing.JButton();
+        botonGuardarCambios = new javax.swing.JButton();
+        botonEditar = new javax.swing.JButton();
         jRadioID = new javax.swing.JRadioButton();
         jRadioNombre = new javax.swing.JRadioButton();
-        botonAlta4 = new javax.swing.JButton();
+        botonAlta = new javax.swing.JButton();
         comboAsesores = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -95,24 +103,20 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
         tablaInmuebleAlquila = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jButton8 = new javax.swing.JButton();
-        botonAlta6 = new javax.swing.JButton();
-        botonAlta7 = new javax.swing.JButton();
+        botonAltaInmueble = new javax.swing.JButton();
+        botonModifInmueble = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaInmuebleDueño = new javax.swing.JTable();
+        botonEliminarInmueble = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         setLayout(null);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 100, 0)), "Seleccione un Cliente (si no ingresar nuevo) ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14), new java.awt.Color(255, 100, 0))); // NOI18N
         jPanel3.setLayout(null);
-
-        fieldNombre.setText("NOMBRE");
         jPanel3.add(fieldNombre);
         fieldNombre.setBounds(180, 270, 220, 30);
-
-        fieldContacto.setText("Contacto (FB,INSTA)");
         jPanel3.add(fieldContacto);
         fieldContacto.setBounds(180, 440, 220, 30);
 
@@ -123,24 +127,21 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
         radioDNI.setText("DNI");
         jPanel3.add(radioDNI);
         radioDNI.setBounds(180, 310, 100, 30);
-
-        fieldDoc.setText("DOCUMENTO");
         jPanel3.add(fieldDoc);
         fieldDoc.setBounds(180, 360, 220, 30);
-
-        fieldTel.setText("Telefono");
         jPanel3.add(fieldTel);
         fieldTel.setBounds(180, 400, 220, 30);
 
-        botonAlta.setBackground(new java.awt.Color(255, 255, 255));
-        botonAlta.setText("Eliminar");
-        botonAlta.addActionListener(new java.awt.event.ActionListener() {
+        botonEliminar.setBackground(new java.awt.Color(255, 255, 255));
+        botonEliminar.setText("Eliminar");
+        botonEliminar.setEnabled(false);
+        botonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAltaActionPerformed(evt);
+                botonEliminarActionPerformed(evt);
             }
         });
-        jPanel3.add(botonAlta);
-        botonAlta.setBounds(280, 560, 120, 40);
+        jPanel3.add(botonEliminar);
+        botonEliminar.setBounds(280, 560, 120, 40);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Cliente captado por:");
@@ -164,14 +165,20 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
 
         tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "ID", "Nombre", "CUIT/DNI"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tablaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaClientesMouseClicked(evt);
@@ -196,26 +203,27 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
         jPanel3.add(jLabel6);
         jLabel6.setBounds(30, 310, 140, 30);
 
-        botonAltaC.setBackground(new java.awt.Color(255, 255, 255));
-        botonAltaC.setText("Guardar Cambios");
-        botonAltaC.setEnabled(false);
-        botonAltaC.addActionListener(new java.awt.event.ActionListener() {
+        botonGuardarCambios.setBackground(new java.awt.Color(255, 255, 255));
+        botonGuardarCambios.setText("Guardar Cambios");
+        botonGuardarCambios.setEnabled(false);
+        botonGuardarCambios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAltaCActionPerformed(evt);
+                botonGuardarCambiosActionPerformed(evt);
             }
         });
-        jPanel3.add(botonAltaC);
-        botonAltaC.setBounds(20, 485, 380, 40);
+        jPanel3.add(botonGuardarCambios);
+        botonGuardarCambios.setBounds(20, 485, 380, 40);
 
-        botonAlta3.setBackground(new java.awt.Color(255, 160, 0));
-        botonAlta3.setText("Editar");
-        botonAlta3.addActionListener(new java.awt.event.ActionListener() {
+        botonEditar.setBackground(new java.awt.Color(255, 160, 0));
+        botonEditar.setText("Editar");
+        botonEditar.setEnabled(false);
+        botonEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAlta3ActionPerformed(evt);
+                botonEditarActionPerformed(evt);
             }
         });
-        jPanel3.add(botonAlta3);
-        botonAlta3.setBounds(150, 560, 120, 40);
+        jPanel3.add(botonEditar);
+        botonEditar.setBounds(150, 560, 120, 40);
 
         buttonGroup1.add(jRadioID);
         jRadioID.setText("Buscar Por ID");
@@ -229,17 +237,16 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
         jPanel3.add(jRadioNombre);
         jRadioNombre.setBounds(20, 30, 190, 30);
 
-        botonAlta4.setBackground(new java.awt.Color(255, 160, 0));
-        botonAlta4.setText("Nuevo Cliente");
-        botonAlta4.addActionListener(new java.awt.event.ActionListener() {
+        botonAlta.setBackground(new java.awt.Color(255, 160, 0));
+        botonAlta.setText("Nuevo Cliente");
+        botonAlta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAlta4ActionPerformed(evt);
+                botonAltaActionPerformed(evt);
             }
         });
-        jPanel3.add(botonAlta4);
-        botonAlta4.setBounds(20, 560, 120, 40);
+        jPanel3.add(botonAlta);
+        botonAlta.setBounds(20, 560, 120, 40);
 
-        comboAsesores.setEditable(true);
         jPanel3.add(comboAsesores);
         comboAsesores.setBounds(180, 230, 220, 30);
 
@@ -256,7 +263,6 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
         jPanel3.setBounds(10, 10, 440, 620);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 100, 0)), "INMUEBLES QUE ALQUILA", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft YaHei UI", 1, 16), new java.awt.Color(255, 100, 0))); // NOI18N
         jPanel4.setLayout(null);
 
         tablaInmuebleAlquila.setBackground(new java.awt.Color(255, 200, 100));
@@ -266,11 +272,11 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
 
             },
             new String [] {
-                "ID", "Direccion", "Zona", "Precio", "Tipo de Inmueble", "Operacion", "Estado", "Habitaciones"
+                "ID", "Direccion", "Zona", "Precio", "Tipo de Inmueble", "Estado", "Habitaciones"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -287,27 +293,39 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
         jPanel4.setBounds(460, 10, 790, 270);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 100, 0)), "INMUEBLES DEL PROPIETARIO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft YaHei UI", 1, 16), new java.awt.Color(255, 100, 0))); // NOI18N
         jPanel5.setLayout(null);
 
         jButton8.setText("Hacer Contrato administracion");
-        jPanel5.add(jButton8);
-        jButton8.setBounds(510, 280, 260, 40);
-
-        botonAlta6.setBackground(new java.awt.Color(255, 160, 0));
-        botonAlta6.setText("Ingresar nuevo inmueble");
-        botonAlta6.addActionListener(new java.awt.event.ActionListener() {
+        jButton8.setEnabled(false);
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAlta6ActionPerformed(evt);
+                jButton8ActionPerformed(evt);
             }
         });
-        jPanel5.add(botonAlta6);
-        botonAlta6.setBounds(20, 280, 170, 40);
+        jPanel5.add(jButton8);
+        jButton8.setBounds(590, 280, 180, 40);
 
-        botonAlta7.setBackground(new java.awt.Color(255, 255, 255));
-        botonAlta7.setText("Eliminar Imueble");
-        jPanel5.add(botonAlta7);
-        botonAlta7.setBounds(200, 280, 180, 40);
+        botonAltaInmueble.setBackground(new java.awt.Color(255, 160, 0));
+        botonAltaInmueble.setText("Agregar Inmueble");
+        botonAltaInmueble.setEnabled(false);
+        botonAltaInmueble.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAltaInmuebleActionPerformed(evt);
+            }
+        });
+        jPanel5.add(botonAltaInmueble);
+        botonAltaInmueble.setBounds(20, 280, 130, 40);
+
+        botonModifInmueble.setBackground(new java.awt.Color(255, 255, 255));
+        botonModifInmueble.setText("Editar Imueble");
+        botonModifInmueble.setEnabled(false);
+        botonModifInmueble.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonModifInmuebleActionPerformed(evt);
+            }
+        });
+        jPanel5.add(botonModifInmueble);
+        botonModifInmueble.setBounds(190, 280, 130, 40);
 
         tablaInmuebleDueño.setBackground(new java.awt.Color(255, 200, 100));
         tablaInmuebleDueño.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -328,10 +346,26 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
             }
         });
         tablaInmuebleDueño.setAutoscrolls(false);
+        tablaInmuebleDueño.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaInmuebleDueñoMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaInmuebleDueño);
 
         jPanel5.add(jScrollPane1);
         jScrollPane1.setBounds(10, 30, 770, 210);
+
+        botonEliminarInmueble.setBackground(new java.awt.Color(255, 255, 255));
+        botonEliminarInmueble.setText("Eliminar Imueble");
+        botonEliminarInmueble.setEnabled(false);
+        botonEliminarInmueble.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarInmuebleActionPerformed(evt);
+            }
+        });
+        jPanel5.add(botonEliminarInmueble);
+        botonEliminarInmueble.setBounds(370, 280, 130, 40);
 
         add(jPanel5);
         jPanel5.setBounds(460, 290, 790, 340);
@@ -339,10 +373,15 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
 
     private void tablaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaClientesMouseClicked
         clienteSelec = mapC.get(this.tablaClientes.getValueAt(tablaClientes.getSelectedRow(), 0));
+        //Cargar datos
         this.fieldNombre.setText(clienteSelec.getNombre());
         this.fieldContacto.setText(clienteSelec.getContacto());
         this.fieldDoc.setText(Integer.toString(clienteSelec.getDocumento()));
         this.fieldTel.setText(Long.toString(clienteSelec.getTel())); 
+        comboAsesores.setSelectedItem(clienteSelec.getAsesorID()+"-"+mapA.get(clienteSelec.getAsesorID()).getNombre());
+        clienteSelec.getId();
+        mClienteController.llenarTablaInmuebles(clienteSelec.getId());
+        //Bloquear y activar botones necesarios
         this.radioDNI.setSelected(true);
         this.radioDNI.setEnabled(false);
         this.radioCUIT.setEnabled(false);
@@ -350,50 +389,35 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
         this.fieldContacto.setEditable(false);
         this.fieldDoc.setEditable(false);
         this.fieldTel.setEditable(false);
-        botonAltaC.setEnabled(false); 
-        comboAsesores.setSelectedItem(clienteSelec.getAsesorID()+"-"+mapA.get(clienteSelec.getAsesorID()).getNombre());
+        botonGuardarCambios.setEnabled(false); 
+        botonEditar.setEnabled(true);
+        botonEliminar.setEnabled(true);
+        botonAltaInmueble.setEnabled(true);
         comboAsesores.setEnabled(false);
     }//GEN-LAST:event_tablaClientesMouseClicked
 
     private void jBuscarPorNomKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jBuscarPorNomKeyReleased
-        ClienteController cc = new ClienteController(this);
         if(jRadioNombre.isSelected()){
-            cc.llenarTabla(jBuscarPorNom.getText());
+            mClienteController.llenarTabla(jBuscarPorNom.getText());
         }else{
             
         }
     }//GEN-LAST:event_jBuscarPorNomKeyReleased
 
-    private void botonAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonAltaActionPerformed
-
-    private void botonAlta3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAlta3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_botonAlta3ActionPerformed
-
-    private void botonAltaCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaCActionPerformed
-        if (controlCampos().isEmpty()) {
-            int tipoDoc;
-            int asesorID = mapA.get(this.comboAsesores.getSelectedIndex()).getId();
-            if (this.radioDNI.isSelected()) {
-                tipoDoc = 0;
-            } else {
-                tipoDoc = 1;
-            }
-            Cliente nuevo = new Cliente(0, asesorID, fieldNombre.getText(), Integer.parseInt(this.fieldDoc.getText()), tipoDoc, Long.parseLong(this.fieldTel.getText()), fieldContacto.getText());
-            (new ClienteController(this)).altaCliente(nuevo);
-        } else {
-            JOptionPane.showMessageDialog(null, controlCampos(), "Error en ingreso de datos", 1);
-        }
-    }//GEN-LAST:event_botonAltaCActionPerformed
-
-    private void botonAlta4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAlta4ActionPerformed
-        clienteSelec = null;
+    private void botonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarActionPerformed
+        CambiarCampos(true);
         this.fieldNombre.setText("");
         this.fieldContacto.setText("");
         this.fieldDoc.setText("");
         this.fieldTel.setText(""); 
+        mClienteController.deleteCliente(clienteSelec.getId());
+        
+    }//GEN-LAST:event_botonEliminarActionPerformed
+    
+    private void botonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEditarActionPerformed
+        CambiarCampos(true);
+        edit = true;
+        /*
         this.radioDNI.setSelected(true);
         this.radioDNI.setEnabled(true);
         this.radioCUIT.setEnabled(true);
@@ -402,39 +426,134 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
         this.fieldDoc.setEditable(true);
         this.fieldTel.setEditable(true);
         botonAltaC.setEnabled(true);
-        comboAsesores.setEnabled(true);
-    }//GEN-LAST:event_botonAlta4ActionPerformed
+        edit = false;
+        //No se si se puede cambiar de asesor
+        //comboAsesores.setEnabled(true);
+        */
+    }//GEN-LAST:event_botonEditarActionPerformed
 
-    private void botonAlta6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAlta6ActionPerformed
-//        if(tablaInmuebleDueño.getSelectedRow()!=-1 ){
+    private void botonGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarCambiosActionPerformed
+        if (controlCampos().isEmpty()) {
+            int tipoDoc;
+            System.out.println();
+            int asesorID = mapA.get(this.comboAsesores.getSelectedIndex()).getId();
+            if (this.radioDNI.isSelected()) {
+                tipoDoc = 0;
+            } else {
+                tipoDoc = 1;
+            }
+            Cliente nuevo = new Cliente(0, asesorID, fieldNombre.getText(), Integer.parseInt(this.fieldDoc.getText()), tipoDoc, Long.parseLong(this.fieldTel.getText()), fieldContacto.getText());
+            if(edit){
+                nuevo.setId(clienteSelec.getId());
+                mClienteController.modificarCliente(nuevo);
+            }else{
+                mClienteController.altaCliente(nuevo);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, controlCampos(), "Error en ingreso de datos", 1);
+        }
+        this.fieldNombre.setText("");
+        this.fieldContacto.setText("");
+        this.fieldDoc.setText("");
+        this.fieldTel.setText(""); 
+        CambiarCampos(false);
+        edit = false;
+        mClienteController.llenarTabla("");
+    }//GEN-LAST:event_botonGuardarCambiosActionPerformed
+
+    private void botonAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaActionPerformed
+        clienteSelec = null;
+        this.fieldNombre.setText("");
+        this.fieldContacto.setText("");
+        this.fieldDoc.setText("");
+        this.fieldTel.setText(""); 
+        CambiarCampos(true);
+        /*
+        this.radioDNI.setSelected(true);
+        this.radioDNI.setEnabled(true);
+        this.radioCUIT.setEnabled(true);
+        this.fieldNombre.setEditable(true);
+        this.fieldContacto.setEditable(true);
+        this.fieldDoc.setEditable(true);
+        this.fieldTel.setEditable(true);
+        edit = false;
+        botonAltaC.setEnabled(true);
+        comboAsesores.setEnabled(true);
+        */
+    }//GEN-LAST:event_botonAltaActionPerformed
+
+    private void botonAltaInmuebleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaInmuebleActionPerformed
+        if(tablaClientes.getSelectedRow()!=-1 ){
+            jDialog1.setSize(1450, 800);
+            jDialog1.setResizable(false);
+            jDialog1.setUndecorated(true);
+            jDialog1.setTitle("Ingresar Inmueble"); 
+            jDialog1.setBounds(10, 10, 600, 730);
+            jDialog1.setModal(true); 
+            int clienteID = clienteSelec.getId();
+            int inmuebleID = -1;
+            //ABMInmueble ai = new ABMInmueble(clienteID,inmuebleID);
+            //jDialog1.add(ai);
+            jDialog1.setVisible(true);
             
-         //   if(mapI.get(tablaInmuebleDueño.getValueAt(tablaInmuebleDueño.getSelectedRow(), 0)).getEstado() == 1){
-                jDialog1.setSize(1450, 800);
-                jDialog1.setTitle("Ingresar Inmueble"); 
-                jDialog1.setBounds(10, 10, 600, 730);
-                jDialog1.setModal(true); 
-          //      int clienteID = mapI.get(tablaInmuebleDueño.getValueAt(tablaInmuebleDueño.getSelectedRow(), 0)).getDuenoID();
-            //    int inmuebleID = mapI.get(tablaInmuebleDueño.getValueAt(tablaInmuebleDueño.getSelectedRow(), 0)).getId();
-       //         ABMInmueble ai = new ABMInmueble(clienteID);
-                ABMInmueble ai = new ABMInmueble();
-                jDialog1.add(ai);
-                jDialog1.setVisible(true);
-      //      }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }//GEN-LAST:event_botonAltaInmuebleActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void botonModifInmuebleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModifInmuebleActionPerformed
+        if(tablaInmuebleDueño.getSelectedRow()!=-1 ){
+            jDialog1.setSize(1450, 800);
+            jDialog1.setResizable(false);
+            jDialog1.setUndecorated(true);
+            jDialog1.setTitle("Ingresar Inmueble"); 
+            jDialog1.setBounds(10, 10, 600, 730);
+            jDialog1.setModal(true); 
+            int clienteID = clienteSelec.getId();
+            int inmuebleID = (int) tablaInmuebleDueño.getValueAt(tablaInmuebleDueño.getSelectedRow(), 0);
+            //ABMInmueble ai = new ABMInmueble(clienteID,inmuebleID);
+            //jDialog1.add(ai);
+            jDialog1.setVisible(true);
             
-     //   }
-     //   else{
-     //       JOptionPane.showMessageDialog(null, "Debe seleccionar un inmueble", "Error", JOptionPane.ERROR_MESSAGE);
-      //      return;
-       // }
-    }//GEN-LAST:event_botonAlta6ActionPerformed
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un inmueble", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }//GEN-LAST:event_botonModifInmuebleActionPerformed
+
+    private void botonEliminarInmuebleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarInmuebleActionPerformed
+        if(tablaInmuebleDueño.getSelectedRow()!=-1 ){
+            int clienteID = clienteSelec.getId();
+            int inmuebleID = (int) tablaInmuebleDueño.getValueAt(tablaInmuebleDueño.getSelectedRow(), 0);
+            mClienteController.deleteInmueble(inmuebleID);
+            
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un inmueble", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+    }//GEN-LAST:event_botonEliminarInmuebleActionPerformed
+
+    private void tablaInmuebleDueñoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaInmuebleDueñoMouseClicked
+        botonEliminarInmueble.setEnabled(true);
+        botonModifInmueble.setEnabled(true);
+    }//GEN-LAST:event_tablaInmuebleDueñoMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAlta;
-    private javax.swing.JButton botonAlta3;
-    private javax.swing.JButton botonAlta4;
-    private javax.swing.JButton botonAlta6;
-    private javax.swing.JButton botonAlta7;
-    private javax.swing.JButton botonAltaC;
+    private javax.swing.JButton botonAltaInmueble;
+    private javax.swing.JButton botonEditar;
+    private javax.swing.JButton botonEliminar;
+    private javax.swing.JButton botonEliminarInmueble;
+    private javax.swing.JButton botonGuardarCambios;
+    private javax.swing.JButton botonModifInmueble;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> comboAsesores;
     private javax.swing.JTextField fieldContacto;
@@ -491,9 +610,11 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
     @Override
     public void llenarAsesores(ArrayList<Asesor> listaA){ 
         mapA=new HashMap<>();
+        int posEnComboBox = 0;
         for(Asesor cl : listaA){
-            mapA.put(cl.getId(), cl);
+            mapA.put(posEnComboBox, cl);
             this.comboAsesores.addItem(cl.getId()+"-"+cl.getNombre()); 
+            posEnComboBox++;
         }
     }
     @Override 
@@ -503,6 +624,100 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
             // limpiarCampos();
         }else{
             JOptionPane.showMessageDialog(null, "El no ha sido dado de alta.","Ha ocurrido un error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    @Override 
+    public void respuestaModifCliente(boolean exito){
+        if(exito){
+            JOptionPane.showMessageDialog(null,"El cliente se ha modificado con exito.");
+            // limpiarCampos();
+        }else{
+            JOptionPane.showMessageDialog(null, "El cliente no se pudo modificar.","Ha ocurrido un error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    @Override 
+    public void respuestaDeleteCliente(boolean exito){
+        if(exito){
+            JOptionPane.showMessageDialog(null,"El cliente se ha eliminado con exito.");
+            // limpiarCampos();
+        }else{
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar el cliente.","Ha ocurrido un error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    public void CambiarCampos(boolean tipe){
+        this.radioDNI.setSelected(tipe);
+        this.radioDNI.setEnabled(tipe);
+        this.radioCUIT.setEnabled(tipe);
+        this.fieldNombre.setEditable(tipe);
+        this.fieldContacto.setEditable(tipe);
+        this.fieldDoc.setEditable(tipe);
+        this.fieldTel.setEditable(tipe);
+        edit = !tipe;
+        botonGuardarCambios.setEnabled(tipe);
+        botonEliminar.setEnabled(tipe);
+        botonEditar.setEnabled(tipe);
+        comboAsesores.setEnabled(tipe);
+    }
+
+    @Override
+    public void llenarTablaInmuebles(ArrayList<Inmueble> inmueblesDueño, ArrayList<Inmueble> inmueblesAlquilando) {
+        int fila = 0; 
+        mapI= new HashMap<>(); 
+        tabla = (DefaultTableModel)tablaInmuebleDueño.getModel();
+        tabla.setNumRows(0);
+        for(Inmueble cl : inmueblesDueño){
+            tabla.addRow(new Object [3]);
+            tablaInmuebleDueño.setValueAt(cl.getId(), fila, 0);
+            tablaInmuebleDueño.setValueAt(cl.getDireccion(), fila, 1);
+            tablaInmuebleDueño.setValueAt(cl.getBarrio(), fila, 2);
+            tablaInmuebleDueño.setValueAt(cl.getPrecio(), fila, 3);
+            tablaInmuebleDueño.setValueAt(cl.getTipo(), fila, 4);
+            tablaInmuebleDueño.setValueAt(cl.getOperacion(), fila, 5);
+            tablaInmuebleDueño.setValueAt(cl.getEstado(), fila, 6);
+            tablaInmuebleDueño.setValueAt(cl.getHabitaciones(), fila, 7);
+            mapI.put(cl.getId(),cl);
+            fila++;
+        }
+        fila = 0;
+        tabla = (DefaultTableModel)tablaInmuebleAlquila.getModel();
+        tabla.setNumRows(0);
+        for(Inmueble cl : inmueblesAlquilando){
+            tabla.addRow(new Object [3]);
+            tablaInmuebleAlquila.setValueAt(cl.getId(), fila, 0);
+            tablaInmuebleAlquila.setValueAt(cl.getDireccion(), fila, 1);
+            tablaInmuebleAlquila.setValueAt(cl.getBarrio(), fila, 2);
+            tablaInmuebleAlquila.setValueAt(cl.getPrecio(), fila, 3);
+            tablaInmuebleAlquila.setValueAt(cl.getTipo(), fila, 4);
+            tablaInmuebleAlquila.setValueAt(cl.getEstado(), fila, 5);
+            tablaInmuebleAlquila.setValueAt(cl.getHabitaciones(), fila, 6);
+            fila++;
+        }
+    }
+
+    @Override
+    public void respuestaDeleteInmueble(boolean exito) {
+        if(exito){
+            mapI.remove((int) tablaInmuebleDueño.getValueAt(tablaInmuebleDueño.getSelectedRow(), 0));
+            tabla = (DefaultTableModel)tablaInmuebleDueño.getModel();
+            tabla.setNumRows(0);
+            int fila = 0; 
+            ArrayList<Inmueble> inmueblesDueño = new ArrayList(mapI.values());
+            for(Inmueble cl : inmueblesDueño){
+                tabla.addRow(new Object [3]);
+                tablaInmuebleDueño.setValueAt(cl.getId(), fila, 0);
+                tablaInmuebleDueño.setValueAt(cl.getDireccion(), fila, 1);
+                tablaInmuebleDueño.setValueAt(cl.getBarrio(), fila, 2);
+                tablaInmuebleDueño.setValueAt(cl.getPrecio(), fila, 3);
+                tablaInmuebleDueño.setValueAt(cl.getTipo(), fila, 4);
+                tablaInmuebleDueño.setValueAt(cl.getOperacion(), fila, 5);
+                tablaInmuebleDueño.setValueAt(cl.getEstado(), fila, 6);
+                tablaInmuebleDueño.setValueAt(cl.getHabitaciones(), fila, 7);
+                fila++;
+            }
+            JOptionPane.showMessageDialog(null,"El Inmueble se ha eliminado con exito.");
+            // limpiarCampos();
+        }else{
+            JOptionPane.showMessageDialog(null, "No se pudo eliminar el Inmueble.","Ha ocurrido un error", JOptionPane.ERROR_MESSAGE);
         }
     }
 }

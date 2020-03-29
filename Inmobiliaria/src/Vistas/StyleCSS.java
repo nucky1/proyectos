@@ -5,6 +5,7 @@
  */
 package Vistas;
 
+import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -12,11 +13,18 @@ import javax.swing.border.Border;
 /**
  *
  * @author demig
+ * 
+        Pattern patron = Pattern.compile("[^A-Za-z ]");
+        Matcher encaja = patron.matcher(fieldNombre.getText());
  */
 public class StyleCSS {
-    
+    public static Color colorDeApp = new Color(231, 60, 0); //Naranja
     public static Border getBordePanel(String title){
-        return javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(231, 60, 0)), title, javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14));
+        return javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(colorDeApp), 
+                title, 
+                javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, 
+                javax.swing.border.TitledBorder.DEFAULT_POSITION, 
+                new java.awt.Font("Tahoma", 0, 14),colorDeApp);
     }
     
     public static void setPlaceHolder(JTextField field,String texto){
