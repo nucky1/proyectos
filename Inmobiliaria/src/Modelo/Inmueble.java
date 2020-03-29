@@ -40,7 +40,11 @@ public class Inmueble {
     private double expensas; ////////este es nuevooooooooo
     private String observaciones;
     private String otros;
-
+    //AGREGADOS QUE FALTAN EN LA BD 
+    private boolean agua;
+    private boolean gas;
+    private boolean luz;
+    
     public Inmueble(){}
     
     public Inmueble(int id, int duenoID, String direccion, float precio, int tipo){
@@ -274,6 +278,19 @@ public class Inmueble {
     public void setOtros(String otros) {
         this.otros = otros;
     }
+
+    public boolean isAgua() {
+        return agua;
+    }
+
+    public boolean isGas() {
+        return gas;
+    }
+
+    public boolean isLuz() {
+        return luz;
+    }
+    
     
     public String toString(){
         return this.getId()+","+this.getDuenoID()+","+this.getDireccion()+","+this.getPrecio()+","+this.getTipo()+","+this.getEstado()+","+this.getHabitaciones()

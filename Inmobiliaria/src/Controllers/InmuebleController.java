@@ -16,9 +16,11 @@ import Vistas.InmuebleView;
  */
 public class InmuebleController {
     private InmuebleView view = null;
+    private InmuebleDAO iDao;
     
     public InmuebleController(InmuebleView view){
         this.view=view;
+        this.iDao = new InmuebleDAO();
     }
     
     /**
@@ -46,6 +48,9 @@ public class InmuebleController {
         (new InmuebleDAO()).setEstado(id,3);
     }
     
+    public void getInmueble(int id){
+        view.cargarDatosInmueble(iDao.buscar(id));
+    }
     /**
      * Recibe un Inmueble por parametro y lo da de alta en la base de datos
      * Retorna verdadero si el alta tuvo exito

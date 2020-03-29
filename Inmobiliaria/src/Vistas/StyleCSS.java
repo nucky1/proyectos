@@ -6,6 +6,7 @@
 package Vistas;
 
 import java.awt.Font;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
@@ -20,6 +21,12 @@ public class StyleCSS {
     }
     
     public static void setPlaceHolder(JTextField field,String texto){
+        TextPrompt placeholder = new TextPrompt(texto, field);
+        placeholder.changeAlpha(0.75f);
+        placeholder.changeStyle(Font.ITALIC);
+    }
+    
+    public static void setPlaceHolderArea(JTextArea field,String texto){
         TextPrompt placeholder = new TextPrompt(texto, field);
         placeholder.changeAlpha(0.75f);
         placeholder.changeStyle(Font.ITALIC);

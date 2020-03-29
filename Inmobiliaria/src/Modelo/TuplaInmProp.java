@@ -15,7 +15,7 @@ public class TuplaInmProp {
     private String direccion;
     private float valRendir;
     private float valTotal;
-    private int pagado;//si el inquilino pago
+    private int pagado;  //si el inquilino pago
     private int rendido; //si le pagamos al dueño
     private int idPago;
     public TuplaInmProp(int idProp, String nombreInq, String direccion, float valRendir, float valTotal, int pagado, int rendido, int idPago) {

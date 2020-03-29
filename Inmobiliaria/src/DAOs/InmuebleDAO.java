@@ -76,7 +76,7 @@ public class InmuebleDAO implements InmDAO {
     public Inmueble buscar(int ID) {
         String SQL="SELECT * FROM inmueble WHERE inm_id = "+ID; 
         ResultSet rs = Main.Conexion.getInstance().EjecutarConsultaSQL(SQL);
-        Inmueble inmAux=null;
+        Inmueble inmAux = null;
         try {
             if(rs.next()){
                 inmAux = new Inmueble(rs.getInt("inm_id"),rs.getInt("inm_dueñoID"),rs.getString("inm_direccion"),rs.getFloat("inm_precio"),rs.getInt("inm_tipo")); 

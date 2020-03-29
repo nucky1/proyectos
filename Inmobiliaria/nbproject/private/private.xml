@@ -5,10 +5,14 @@
         <group>
             <file>file:/C:/Users/Lucho/Documents/proyectos2020/Inmobiliaria/src/Vistas/InmueblePanel.java</file>
             <file>file:/C:/Users/Lucho/Documents/proyectos2020/Inmobiliaria/src/Vistas/ABMInmueble.java</file>
+            <file>file:/C:/Users/Lucho/Documents/proyectos2020/Inmobiliaria/src/Controllers/InmuebleController.java</file>
             <file>file:/C:/Users/Lucho/Documents/proyectos2020/Inmobiliaria/src/Vistas/StyleCSS.java</file>
+            <file>file:/C:/Users/Lucho/Documents/proyectos2020/Inmobiliaria/src/Modelo/Inmueble.java</file>
             <file>file:/C:/Users/Lucho/Documents/proyectos2020/Inmobiliaria/src/Vistas/ClientePanel.java</file>
+            <file>file:/C:/Users/Lucho/Documents/proyectos2020/Inmobiliaria/src/Vistas/InmuebleView.java</file>
             <file>file:/C:/Users/Lucho/Documents/proyectos2020/Inmobiliaria/src/Vistas/HacerContratoPanel.java</file>
             <file>file:/C:/Users/Lucho/Documents/proyectos2020/Inmobiliaria/src/Vistas/HacerContratoSinADM.java</file>
+            <file>file:/C:/Users/Lucho/Documents/proyectos2020/Inmobiliaria/src/DAOs/InmuebleDAO.java</file>
         </group>
     </open-files>
 </project-private>

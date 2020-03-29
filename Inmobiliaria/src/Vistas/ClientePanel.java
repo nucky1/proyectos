@@ -416,8 +416,8 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
           //      int clienteID = mapI.get(tablaInmuebleDueño.getValueAt(tablaInmuebleDueño.getSelectedRow(), 0)).getDuenoID();
             //    int inmuebleID = mapI.get(tablaInmuebleDueño.getValueAt(tablaInmuebleDueño.getSelectedRow(), 0)).getId();
        //         ABMInmueble ai = new ABMInmueble(clienteID);
-                ABMInmueble ai = new ABMInmueble();
-                jDialog1.add(ai);
+                //ABMInmueble ai = new ABMInmueble();
+             //   jDialog1.add(ai);
                 jDialog1.setVisible(true);
       //      }
             

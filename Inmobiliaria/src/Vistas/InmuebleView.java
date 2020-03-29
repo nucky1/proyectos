@@ -26,5 +26,6 @@ public interface InmuebleView {
     
     public void modificarInmueble();
     
+    public void cargarDatosInmueble(Inmueble inm);
     
 }

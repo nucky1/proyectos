@@ -386,12 +386,13 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
 
     private void botonDetallesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonDetallesActionPerformed
         if(tablaInmueble.getSelectedRow()!=-1){
+            Inmueble aux = mapI.get(tablaInmueble.getValueAt(tablaInmueble.getSelectedRow(), 0));
             jDialog2 = new javax.swing.JDialog();
             jDialog2.setSize(1450, 800);
             jDialog2.setTitle("Informacion completa del Inmueble."); 
-            jDialog2.setBounds(25, 50, 1250, 1200);
+            jDialog2.setBounds(25, 20, 1250, 1050);
             jDialog2.setModal(true); 
-            jDialog2.add(new ABMInmueble());
+            jDialog2.add(new ABMInmueble(aux.getId(),-1));
             jDialog2.setVisible(true); 
         }
     }//GEN-LAST:event_botonDetallesActionPerformed
@@ -492,6 +493,11 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
 
     @Override
     public void modificarInmueble() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void cargarDatosInmueble(Inmueble inm) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
