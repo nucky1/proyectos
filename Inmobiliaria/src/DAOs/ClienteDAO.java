@@ -5,6 +5,7 @@
  */
 package DAOs;
 
+import Controllers.ClienteController;
 import Modelo.Cliente;
 import Modelo.Inmueble;
 import java.sql.ResultSet;
@@ -16,6 +17,10 @@ import java.sql.SQLException;
  * @author fran_
  */
 public class ClienteDAO implements CteDAO{
+
+    public ClienteDAO() {
+        
+    }
 
     @Override
     public ArrayList<Inmueble> getPropiedades(int clienteID) {
@@ -53,8 +58,42 @@ public class ClienteDAO implements CteDAO{
     }
     
     @Override
-    public ArrayList<Inmueble> getAlquilando(int id) {
-       String SQL="SELECT * FROM inmueble WHERE inm_dueño = "+id; 
+    public ArrayList<Inmueble> getInmueblesDueño(int id) {
+       String SQL="SELECT * FROM inmueble WHERE inm_dueñoID = "+id; 
+       ArrayList<Inmueble> inm = new ArrayList();
+        try{
+            ResultSet rs = Main.Conexion.getInstance().EjecutarConsultaSQL(SQL);
+            while(rs.next()){
+                Inmueble inmAux = new Inmueble(rs.getInt("inm_id"),rs.getInt("inm_dueñoID"),rs.getString("inm_direccion"),rs.getFloat("inm_precio"),rs.getInt("inm_tipo"));
+                inmAux.setEstado(rs.getInt("inm_estado"));
+                inmAux.setHabitaciones(rs.getInt("inm_habitaciones"));
+                inmAux.setBano(rs.getInt("inm_baños"));
+                inmAux.setPatio(rs.getBoolean("inm_patio"));
+                inmAux.setCocina(rs.getBoolean("inm_cocina"));
+                inmAux.setLiving(rs.getBoolean("inm_living"));
+                inmAux.setComedor(rs.getBoolean("inm_comedor"));
+                inmAux.setCocinaLiving(rs.getBoolean("inm_cocinaLiving"));
+                inmAux.setCocinaComedor(rs.getBoolean("inm_cocinaComedor"));
+                inmAux.setCocinaLivingComedor(rs.getBoolean("inm_cocinaLivingComedor"));
+                inmAux.setMetros2(rs.getFloat("inm_MTS2"));
+                inmAux.setFondo(rs.getFloat("inm_fondo"));
+                inmAux.setBarrio(rs.getString("inm_barrio"));
+                inmAux.setGarage(rs.getBoolean("inm_garage"));
+                inmAux.setPlantaAlta(rs.getBoolean("inm_plantaAlta"));
+                inmAux.setImpuestos(rs.getBoolean("inm_impuestos"));
+                inmAux.setServicios(rs.getInt("inm_impuestos"));
+                inmAux.setObservaciones(rs.getString("inm_observaciones"));
+                inmAux.setOtros(rs.getString("inm_otros"));
+                inm.add(inmAux);
+            }
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        } 
+       return  inm;
+    }
+    @Override
+    public ArrayList<Inmueble> getInmueblesAlquilando(int id) {
+       String SQL="SELECT inmueble.* FROM inmueble,infocontrato WHERE infoC_clienteID = "+id+" AND infoC_inmuebleID = inm_id"; 
        ArrayList<Inmueble> inm = new ArrayList();
         try{
             ResultSet rs = Main.Conexion.getInstance().EjecutarConsultaSQL(SQL);
@@ -131,7 +170,7 @@ public class ClienteDAO implements CteDAO{
     @Override
     public boolean baja(int ID) {
         String SQL = "DELETE FROM cliente WHERE cte_id = "+ID;
-        return Main.Conexion.getInstance().EjecutarOperacion(SQL)>1;
+        return Main.Conexion.getInstance().EjecutarOperacion(SQL)>=1;
     }
 
     /**
@@ -142,8 +181,8 @@ public class ClienteDAO implements CteDAO{
      */
     @Override
     public boolean modificar(Cliente actualizado) {
-        String SQL = "UPDATE cliente SET cte_asesorID = "+actualizado.getAsesorID()+", cte_nombre = "+actualizado.getNombre()+", cte_doc = "+actualizado.getDocumento()+", cte_telefono = "+actualizado.getTel()+", cte_contacto ="+ actualizado.getContacto()+" WHERE cte_id = "+ actualizado.getId();
-        return Main.Conexion.getInstance().EjecutarOperacion(SQL)>1;
+        String SQL = "UPDATE cliente SET cte_asesorID = "+actualizado.getAsesorID()+", cte_nombre = '"+actualizado.getNombre()+"', cte_doc = "+actualizado.getDocumento()+", cte_telefono = "+actualizado.getTel()+", cte_contacto ="+ actualizado.getContacto()+" WHERE cte_id = "+ actualizado.getId();
+        return Main.Conexion.getInstance().EjecutarOperacion(SQL)>=1;
     }
 
     /**
@@ -157,7 +196,6 @@ public class ClienteDAO implements CteDAO{
         String SQL = "SELECT * FROM cliente WHERE cte_id = "+ ID;
         Cliente cmAux=null;
         try{
-            
             ResultSet rs = Main.Conexion.getInstance().EjecutarConsultaSQL(SQL);
             if(rs.next())
             cmAux = new Cliente(rs.getInt("cte_id"), rs.getInt("cte_asesorID"), rs.getString("cte_nombre"),rs.getInt("cte_doc"),0,rs.getLong("cte_telefono"),rs.getString("cte_contacto"));            
