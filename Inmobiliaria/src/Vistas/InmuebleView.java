@@ -28,4 +28,5 @@ public interface InmuebleView {
     
     public void cargarDatosInmueble(Inmueble inm);
     
+    public void respuestaAlta(boolean exito);
 }

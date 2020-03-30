@@ -17,10 +17,12 @@ import Vistas.InmuebleView;
 public class InmuebleController {
     private InmuebleView view = null;
     private InmuebleDAO iDao;
+    private ContratoDAO cDao;
     
     public InmuebleController(InmuebleView view){
         this.view=view;
         this.iDao = new InmuebleDAO();
+        this.cDao = new ContratoDAO();
     }
     
     /**
@@ -36,7 +38,7 @@ public class InmuebleController {
      * Le pasa la lista al view para que llene la tabla de inmuebles
      */
     public void cargarInmuebles(int desdite, int hastita, int tipito, int operacioncita, int estadito, int habitacioncita){
-        ArrayList<Inmueble> listarTodo = (new InmuebleDAO()).listarTodo();
+        ArrayList<Inmueble> listarTodo = iDao.listarTodo();
         ArrayList<Inmueble> listarTodito = new ArrayList<>();
         listarTodo.stream().filter((inm) -> ((tipito==0 || tipito==inm.getTipo()) && (operacioncita==0 || inm.getOperacion() ==3  || operacioncita==inm.getOperacion()) && (estadito==0 || estadito==inm.getEstado()))).filter((inm) -> ((desdite<inm.getPrecio() && inm.getPrecio()<hastita) && (habitacioncita==0 || habitacioncita*inm.getHabitaciones()>25 || habitacioncita==inm.getHabitaciones()))).forEachOrdered((inm) -> {
             listarTodito.add(inm);
@@ -45,7 +47,7 @@ public class InmuebleController {
     }
     
     public void setReservado(int id){
-        (new InmuebleDAO()).setEstado(id,3);
+        iDao.setEstado(id,3);
     }
     
     public void getInmueble(int id){
@@ -57,8 +59,8 @@ public class InmuebleController {
      * @param nuevo
      * @return 
      */
-    public boolean alta(Inmueble nuevo){
-        return (new InmuebleDAO()).alta(nuevo);
+    public void alta(Inmueble nuevo){
+        view.respuestaAlta(iDao.alta(nuevo));  
     }
     
     /**
@@ -68,12 +70,12 @@ public class InmuebleController {
      * @return 
      */
     public boolean modificar(Inmueble nuevo){
-        return (new InmuebleDAO()).modificar(nuevo);
+        return iDao.modificar(nuevo);
     }
     
     
     public boolean estaAdministrado(int clienteID){
-        return (new ContratoDAO()).clienteTipoContrato(clienteID, 3);
+        return cDao.clienteTipoContrato(clienteID, 3);
     }
     
 }

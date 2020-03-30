@@ -48,7 +48,6 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
         operacion.put(0,null);
         operacion.put(1,"Vender");
         operacion.put(2,"Alquilar");
-        operacion.put(3,"Ambos");
         estado = new HashMap<>();
         estado.put(0,null);
         estado.put(1,"Disponible");
@@ -498,6 +497,11 @@ public class InmueblePanel extends javax.swing.JPanel implements InmuebleView {
 
     @Override
     public void cargarDatosInmueble(Inmueble inm) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void respuestaAlta(boolean exito) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

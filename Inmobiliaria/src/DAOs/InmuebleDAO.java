@@ -26,9 +26,9 @@ public class InmuebleDAO implements InmDAO {
     public boolean alta(Inmueble t) {
        String SQL ="INSERT INTO inmueble(inm_dueñoID,inm_direccion,inm_precio,inm_tipo,inm_estado,inm_habitaciones,inm_baños,inm_patio,inm_cocina,"
                + "inm_living,inm_comedor,inm_cocinaLiving,inm_cocinaComedor,inm_cocinaLivingComedor,inm_MTS2,inm_fondo,inm_barrio,inm_garage,"
-               + "inm_plantaAlta,inm_impuestos,inm_servicios,inm_observaciones,inm_otros,inm_operacion,inm_lavadero,inm_amoblado,inm_expensas) VALUES("
+               + "inm_plantaAlta,inm_impuestos,inm_servicios,inm_observaciones,inm_otros,inm_operacion,inm_lavadero,inm_amoblado,inm_expensas,inm_luz,inm_gas,inm_agua) VALUES("
                +t.getDuenoID()+","
-               +t.getDireccion()+","
+               +"'"+t.getDireccion()+"',"
                +t.getPrecio()+","
                +t.getTipo()+","
                +t.getEstado()+","
@@ -43,18 +43,21 @@ public class InmuebleDAO implements InmDAO {
                +t.isCocinaLivingComedor()+","
                +t.getMetros2()+","
                +t.getFondo()+","
-               +t.getBarrio()+","
+               +"'"+t.getBarrio()+"',"
                +t.isGarage()+","
                +t.isPlantaAlta()+","
                +t.isImpuestos()+","
                +t.getServicios()+","
-               +t.getObservaciones()+","
-               +t.getOtros()+","
+               +"'"+t.getObservaciones()+"',"
+               +"'"+t.getOtros()+"',"
                +t.getOperacion()+","
                +t.isLavadero()+","
                +t.isAmoblado()+","
-               +t.getExpensas()+" )";
-               ;
+               +t.getExpensas()+","
+               +t.isLuz()+","
+               +t.isGas()+","
+               +t.isAgua()+" )"; 
+        System.out.println("SQL = " + SQL);
        return (Main.Conexion.getInstance().EjecutarOperacion(SQL) >= 1 );
     }
 

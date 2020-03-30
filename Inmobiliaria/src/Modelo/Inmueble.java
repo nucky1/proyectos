@@ -13,17 +13,15 @@ public class Inmueble {
     private int id;
     private int duenoID;
     private String direccion;
-    private float precio;
-    private int operacion; // Vender, Alquilar o ambas
+    private float precio; 
     private int tipo;
     private int estado;
-    private String barrio;
+    private String barrio; 
     
     private int habitaciones;
     private int bano;
     private boolean patio;
-    private boolean amoblado; /// nueviin pajerin
-    private boolean lavadero;///////este es nuevooo
+
     private boolean cocina;
     private boolean comedor;
     private boolean living;
@@ -40,6 +38,9 @@ public class Inmueble {
     private double expensas; ////////este es nuevooooooooo
     private String observaciones;
     private String otros;
+    private boolean lavadero;  
+    private int operacion; // Vender, Alquilar
+    private boolean amoblado;
     //AGREGADOS QUE FALTAN EN LA BD 
     private boolean agua;
     private boolean gas;
@@ -53,7 +54,42 @@ public class Inmueble {
         this.direccion = direccion;
         this.precio = precio;
         this.tipo = tipo;
+    }    
+
+    public Inmueble(int id, int duenoID, String direccion, float precio, int operacion, int tipo, int estado, String barrio, int habitaciones, int bano, boolean patio, boolean amoblado, boolean lavadero, boolean cocina, boolean comedor, boolean living, boolean cocinaLiving, boolean cocinaComedor, boolean cocinaLivingComedor, float metros2, float fondo, boolean garage, boolean plantaAlta, boolean impuestos, int servicios, double expensas, String observaciones, String otros, boolean agua, boolean gas, boolean luz) {
+        this.id = id;
+        this.duenoID = duenoID;
+        this.direccion = direccion;
+        this.precio = precio;
+        this.operacion = operacion;
+        this.tipo = tipo;
+        this.estado = estado;
+        this.barrio = barrio;
+        this.habitaciones = habitaciones;
+        this.bano = bano;
+        this.patio = patio;
+        this.amoblado = amoblado;
+        this.lavadero = lavadero;
+        this.cocina = cocina;
+        this.comedor = comedor;
+        this.living = living;
+        this.cocinaLiving = cocinaLiving;
+        this.cocinaComedor = cocinaComedor;
+        this.cocinaLivingComedor = cocinaLivingComedor;
+        this.metros2 = metros2;
+        this.fondo = fondo;
+        this.garage = garage;
+        this.plantaAlta = plantaAlta;
+        this.impuestos = impuestos;
+        this.servicios = servicios;
+        this.expensas = expensas;
+        this.observaciones = observaciones;
+        this.otros = otros;
+        this.agua = agua;
+        this.gas = gas;
+        this.luz = luz;
     }
+    
 
     public int getId() {
         return id;

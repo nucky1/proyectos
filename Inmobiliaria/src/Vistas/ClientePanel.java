@@ -492,8 +492,8 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
             jDialog1.setModal(true); 
             int clienteID = clienteSelec.getId();
             int inmuebleID = -1;
-            //ABMInmueble ai = new ABMInmueble(clienteID,inmuebleID);
-            //jDialog1.add(ai);
+            ABMInmueble ai = new ABMInmueble(inmuebleID,clienteID);
+            jDialog1.add(ai);
             jDialog1.setVisible(true);
             
         }
@@ -592,7 +592,7 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
     }
      
     @Override
-    public void llenarTabla(ArrayList<Cliente> listaC) { 
+    public void llenarTablaClientes(ArrayList<Cliente> listaC) { 
         int fila = 0; 
         mapC= new HashMap<>(); 
         tabla = (DefaultTableModel)tablaClientes.getModel();
@@ -719,5 +719,10 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
         }else{
             JOptionPane.showMessageDialog(null, "No se pudo eliminar el Inmueble.","Ha ocurrido un error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    @Override
+    public void cargarDatosClientes(Cliente cte) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

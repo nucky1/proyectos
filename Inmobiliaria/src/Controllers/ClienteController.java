@@ -29,7 +29,7 @@ public class ClienteController  {
     }
     
     public void llenarTabla(String texto){
-        view.llenarTabla((daoCliente).listarPorNombre(texto));
+        view.llenarTablaClientes((daoCliente).listarPorNombre(texto));
     } 
      
     public void altaCliente(Cliente nuevo){ 
@@ -53,6 +53,10 @@ public class ClienteController  {
 
     public void deleteInmueble(int inmuebleID) {
         view.respuestaDeleteInmueble(daoInmueble.baja(inmuebleID));
+    }
+    
+    public void getCliente(int idCliente){
+        view.cargarDatosClientes(daoCliente.buscar(idCliente));
     }
     
 }
