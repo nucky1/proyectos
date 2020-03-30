@@ -25,8 +25,7 @@ public interface InmuebleView {
     public void nuevoInmueble();
     
     public void modificarInmueble();
-    
-    public void cargarDatosInmueble(Inmueble inm);
-    
+     
     public void respuestaAlta(boolean exito);
+    public void respuestaModificar(boolean exito);
 }

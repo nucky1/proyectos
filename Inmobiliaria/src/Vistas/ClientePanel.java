@@ -484,6 +484,7 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
 
     private void botonAltaInmuebleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaInmuebleActionPerformed
         if(tablaClientes.getSelectedRow()!=-1 ){
+            jDialog1 = new javax.swing.JDialog();
             jDialog1.setSize(1450, 800);
             jDialog1.setResizable(false);
             jDialog1.setUndecorated(true);
@@ -491,11 +492,11 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
             jDialog1.setBounds(10, 10, 600, 730);
             jDialog1.setModal(true); 
             int clienteID = clienteSelec.getId();
-            int inmuebleID = -1;
-            ABMInmueble ai = new ABMInmueble(inmuebleID,clienteID);
+            Inmueble inmuebleNulo = new Inmueble(-1,clienteID);
+            ABMInmueble ai = new ABMInmueble(inmuebleNulo,false);
             jDialog1.add(ai);
             jDialog1.setVisible(true);
-            
+            jDialog1.dispose();
         }
         else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente", "Error", JOptionPane.ERROR_MESSAGE);
@@ -509,18 +510,21 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
 
     private void botonModifInmuebleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModifInmuebleActionPerformed
         if(tablaInmuebleDueño.getSelectedRow()!=-1 ){
+            jDialog1 = new javax.swing.JDialog();
             jDialog1.setSize(1450, 800);
             jDialog1.setResizable(false);
             jDialog1.setUndecorated(true);
             jDialog1.setTitle("Ingresar Inmueble"); 
             jDialog1.setBounds(10, 10, 600, 730);
             jDialog1.setModal(true); 
-            int clienteID = clienteSelec.getId();
-            int inmuebleID = (int) tablaInmuebleDueño.getValueAt(tablaInmuebleDueño.getSelectedRow(), 0);
-            //ABMInmueble ai = new ABMInmueble(clienteID,inmuebleID);
-            //jDialog1.add(ai);
+          //  int clienteID = clienteSelec.getId();
+            Inmueble inmModific = mapI.get((int) tablaInmuebleDueño.getValueAt(tablaInmuebleDueño.getSelectedRow(), 0));
+            ABMInmueble aii = new ABMInmueble(inmModific,false);// Envio FALSE para que no me deshabilite los campos.
+            jDialog1.add(aii);
             jDialog1.setVisible(true);
-            
+            //Cuando vuelva tenes que refrescar las tablas trallendo desde la BD los inmuebles nuevos 
+            // o modificados ... hay que corregir los DAOS de inmueble por que faltan campos en el SELECT 
+            jDialog1.dispose();
         }
         else{
             JOptionPane.showMessageDialog(null, "Debe seleccionar un inmueble", "Error", JOptionPane.ERROR_MESSAGE);

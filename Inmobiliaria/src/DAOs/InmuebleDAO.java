@@ -72,7 +72,39 @@ public class InmuebleDAO implements InmDAO {
     }    
     @Override
     public boolean modificar(Inmueble t) {
-        return false;
+        String SQL = "UPDATE inmueble SET " 
+                +" inm_direccion ='"+t.getDireccion()+"'"
+                +", inm_precio ="+t.getPrecio()
+                +", inm_tipo ="+t.getTipo()
+                +", inm_estado ="+t.getEstado()
+                +", inm_habitaciones ="+t.getHabitaciones()
+                +", inm_baños ="+t.getBano()
+                +", inm_patio ="+t.isPatio()
+                +", inm_cocina ="+t.isCocina()
+                +", inm_living ="+t.isLiving()
+                +", inm_comedor ="+t.isComedor()
+                +", inm_cocinaLiving ="+t.isCocinaLiving() 
+                +", inm_cocinaComedor ="+t.isCocinaComedor()
+                +", inm_cocinaLivingComedor ="+t.isCocinaLivingComedor()
+                +", inm_MTS2 ="+t.getMetros2()
+                +", inm_fondo ="+t.getFondo()
+                +", inm_barrio ='"+t.getBarrio()+"'"
+                +", inm_garage ="+t.isGarage()
+                +", inm_plantaAlta ="+t.isPlantaAlta()
+                +", inm_impuestos ="+t.isImpuestos()
+                +", inm_servicios ="+t.getServicios()
+                +", inm_observaciones ='"+t.getObservaciones()+"'"
+                +", inm_otros ='"+t.getOtros()+"'"
+                +", inm_operacion ="+t.getOperacion()
+                +", inm_lavadero ="+t.isLavadero()
+                +", inm_amoblado ="+t.isAmoblado()
+                +", inm_expensas ="+t.getExpensas()
+                +", inm_luz ="+t.isLuz()
+                +", inm_gas ="+t.isGas()
+                +", inm_agua ="+t.isAgua()
+                +" WHERE inm_id = "+t.getId();
+        System.out.println("SQL = " + SQL);
+        return Main.Conexion.getInstance().EjecutarOperacion(SQL)>=1; 
     }
     
     @Override

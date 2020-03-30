@@ -46,7 +46,10 @@ public class Inmueble {
     private boolean gas;
     private boolean luz;
     
-    public Inmueble(){}
+    public Inmueble(int id, int duenoID){
+        this.id = id;
+        this.duenoID=duenoID;
+    }
     
     public Inmueble(int id, int duenoID, String direccion, float precio, int tipo){
         this.id = id;

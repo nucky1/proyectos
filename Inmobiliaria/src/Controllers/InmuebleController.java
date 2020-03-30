@@ -49,10 +49,7 @@ public class InmuebleController {
     public void setReservado(int id){
         iDao.setEstado(id,3);
     }
-    
-    public void getInmueble(int id){
-        view.cargarDatosInmueble(iDao.buscar(id));
-    }
+     
     /**
      * Recibe un Inmueble por parametro y lo da de alta en la base de datos
      * Retorna verdadero si el alta tuvo exito
@@ -69,8 +66,8 @@ public class InmuebleController {
      * @param nuevo
      * @return 
      */
-    public boolean modificar(Inmueble nuevo){
-        return iDao.modificar(nuevo);
+    public void modificar(Inmueble nuevo){
+        view.respuestaModificar(iDao.modificar(nuevo));
     }
     
     

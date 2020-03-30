@@ -22,20 +22,23 @@ import javax.swing.SwingUtilities;
 public class ABMInmueble extends javax.swing.JPanel implements InmuebleView,ClienteView{
     private InmuebleController ic = new InmuebleController(this);
     private ClienteController cc = new ClienteController(this);
-    private Inmueble inmSelec; // se inicializa con la respuesta del ic
-    private int idCliente;
+    private Inmueble inmSelec;
     
     
     
     /**
-     * Creates new form ABMInmueble
+     * 
+     * @param inm INMUEBLE A MODIFICAR/MOSTRAR ----SI ES EL CASO DEL ALTA VIENE EN ID =-1 Y EL ID DEL DUEÑO.
+     * @param noEdit FLAG QUE DESHABILITA LA EDICION DE LOS DATOS 
      */
-    public ABMInmueble(int idInmueble,int idCliente) {
+    public ABMInmueble(Inmueble inm,boolean noEdit) { 
         initComponents();
-        if(idInmueble==-1){ // si es -1 entonces se agrega un inmueble nuevo 
+        inmSelec=inm;
+        if(inmSelec.getId()==-1){ // si es -1 entonces se agrega un inmueble nuevo
             //---------CSS STYLE
             this.setBorder(StyleCSS.getBordePanel("Cargar Datos del inmueble.")); 
             jPanel1.setBorder(StyleCSS.getBordePanel("Seleccione las características del inmueble."));
+            jPanel2.setBorder(StyleCSS.getBordePanel("Seleccionar tipo de Inmueble."));
             StyleCSS.setPlaceHolder(textDireccion, "Direccion...");
             StyleCSS.setPlaceHolder(textPrecio, "precio...");    
             StyleCSS.setPlaceHolder(textBarrio, "Barrio/zona...");
@@ -46,25 +49,32 @@ public class ABMInmueble extends javax.swing.JPanel implements InmuebleView,Clie
             jLabel16.setVisible(false);
             jLabel17.setVisible(false);
             jLabel14.setVisible(false);
-            jLabel10.setVisible(false);  
-            this.idCliente = idCliente;
-        }else{
+            jLabel10.setVisible(false);  //Id del dueño
+        }else{ 
             //---------CSS STYLE
             this.setBorder(StyleCSS.getBordePanel("Datos de la propiedad.")); 
             jPanel1.setBorder(StyleCSS.getBordePanel("Características del inmueble.")); 
-            //---------FIN CSS STYLE
-            editable();
-            ic.getInmueble(idInmueble);
-            cc.getCliente(inmSelec.getDuenoID());
-        }
-
+            jPanel2.setBorder(StyleCSS.getBordePanel("Tipo de Inmueble."));                    
+            //---------FIN CSS STYLE 
+            if(noEdit){      //Si es true entonces lo llama desde el editar desde buscador de inmuebles  y  
+                deshabilitarCampos();
+                this.cargarDatosInmueble(inmSelec);
+                cc.getCliente(inmSelec.getDuenoID());// Lo traigo desde la BD para poner el nombre del man
+            }else{
+                jLabel16.setVisible(false);
+                jLabel17.setVisible(false);
+                jLabel14.setVisible(false);
+                jLabel10.setVisible(false);  
+                this.cargarDatosInmueble(inmSelec);
+            }  
+        }    
     }
 
     ABMInmueble(int clienteID) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void editable(){
+    public void deshabilitarCampos(){
         jLabel10.setEnabled(false);
         textBarrio.setEnabled(false);
         textPrecio.setEnabled(false);
@@ -99,8 +109,31 @@ public class ABMInmueble extends javax.swing.JPanel implements InmuebleView,Clie
         botonGuardar.setVisible(false);
     }
     
-    public boolean controlCampos(){
-        return true;
+    public String controlCampos(){
+        String error = ""; 
+        if ( textDireccion.getText().isEmpty()) {
+            error = error+ "-La direccion ingresada no es valida\n";  
+        }  
+        try {
+            Float.parseFloat(this.textPrecio.getText());
+        } catch (NumberFormatException e) {
+            error = error+ "-El precio ingresado no es valido\n"; 
+        }
+        try {
+            Float.parseFloat(this.textExpensas.getText());
+        } catch (NumberFormatException e) {
+            error = error+ "-El monto ingresado de las expensas no es valido.\n"; 
+        } 
+        if ( textBarrio.getText().isEmpty()) {
+            error = error+ "-El barrio ingresado no es valido\n";  
+        }
+        if(!(jCheckVender.isSelected() || jCheckAlquilar.isSelected())){
+            error = error+ "-Debe ingresar un tipo de operacion\n";  
+        }
+        if(!(jRadioBcasa.isSelected() || jRadioBuDepto.isSelected()|| jRadioBuLocal.isSelected()|| jRadioBuTerreno.isSelected())){
+            error = error+ "-Debe ingresar un tipo de inmueble\n";  
+        }   
+        return error; 
     }
     
     
@@ -124,10 +157,6 @@ public class ABMInmueble extends javax.swing.JPanel implements InmuebleView,Clie
         textPrecio = new javax.swing.JTextField();
         botonGuardar = new javax.swing.JButton();
         spinMTS2 = new javax.swing.JSpinner();
-        jRadioBcasa = new javax.swing.JRadioButton();
-        jRadioBuDepto = new javax.swing.JRadioButton();
-        jRadioBuLocal = new javax.swing.JRadioButton();
-        jRadioBuTerreno = new javax.swing.JRadioButton();
         jCheckVender = new javax.swing.JCheckBox();
         jCheckAlquilar = new javax.swing.JCheckBox();
         jLabel3 = new javax.swing.JLabel();
@@ -135,7 +164,6 @@ public class ABMInmueble extends javax.swing.JPanel implements InmuebleView,Clie
         spinHabitacion1 = new javax.swing.JSpinner();
         spinMFondo = new javax.swing.JSpinner();
         spinBanio = new javax.swing.JSpinner();
-        jLabel7 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jcBoxLiving = new javax.swing.JCheckBox();
         jcBoxCocina = new javax.swing.JCheckBox();
@@ -175,6 +203,11 @@ public class ABMInmueble extends javax.swing.JPanel implements InmuebleView,Clie
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         botonSalir1 = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jRadioBuTerreno = new javax.swing.JRadioButton();
+        jRadioBuLocal = new javax.swing.JRadioButton();
+        jRadioBuDepto = new javax.swing.JRadioButton();
+        jRadioBcasa = new javax.swing.JRadioButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(null);
@@ -275,26 +308,6 @@ public class ABMInmueble extends javax.swing.JPanel implements InmuebleView,Clie
         add(spinMTS2);
         spinMTS2.setBounds(300, 310, 120, 30);
 
-        buttonGroup1.add(jRadioBcasa);
-        jRadioBcasa.setText("Casa");
-        add(jRadioBcasa);
-        jRadioBcasa.setBounds(50, 240, 90, 23);
-
-        buttonGroup1.add(jRadioBuDepto);
-        jRadioBuDepto.setText("Departamento");
-        add(jRadioBuDepto);
-        jRadioBuDepto.setBounds(170, 240, 130, 23);
-
-        buttonGroup1.add(jRadioBuLocal);
-        jRadioBuLocal.setText("Local");
-        add(jRadioBuLocal);
-        jRadioBuLocal.setBounds(330, 240, 90, 23);
-
-        buttonGroup1.add(jRadioBuTerreno);
-        jRadioBuTerreno.setText("Terreno");
-        add(jRadioBuTerreno);
-        jRadioBuTerreno.setBounds(460, 240, 90, 23);
-
         jCheckVender.setText("Vender");
         add(jCheckVender);
         jCheckVender.setBounds(330, 160, 80, 23);
@@ -329,10 +342,6 @@ public class ABMInmueble extends javax.swing.JPanel implements InmuebleView,Clie
         spinBanio.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         add(spinBanio);
         spinBanio.setBounds(160, 310, 120, 30);
-
-        jLabel7.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(231, 60, 0)), "Seleccionar tipo de Inmueble.", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11), new java.awt.Color(231, 60, 0))); // NOI18N
-        add(jLabel7);
-        jLabel7.setBounds(20, 220, 540, 50);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
@@ -487,63 +496,63 @@ public class ABMInmueble extends javax.swing.JPanel implements InmuebleView,Clie
 
         jLabel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(jLabel8);
-        jLabel8.setBounds(910, 150, 140, 20);
+        jLabel8.setBounds(940, 150, 140, 20);
 
         jLabel19.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(jLabel19);
-        jLabel19.setBounds(910, 180, 140, 20);
+        jLabel19.setBounds(940, 180, 140, 20);
 
         jLabel22.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(jLabel22);
-        jLabel22.setBounds(910, 210, 140, 20);
+        jLabel22.setBounds(940, 210, 140, 20);
 
         jLabel25.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(jLabel25);
-        jLabel25.setBounds(910, 240, 140, 20);
+        jLabel25.setBounds(940, 240, 140, 20);
 
         jLabel29.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(jLabel29);
-        jLabel29.setBounds(740, 270, 140, 20);
+        jLabel29.setBounds(770, 270, 140, 20);
 
         jLabel26.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(jLabel26);
-        jLabel26.setBounds(740, 240, 140, 20);
+        jLabel26.setBounds(770, 240, 140, 20);
 
         jLabel23.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(jLabel23);
-        jLabel23.setBounds(740, 210, 140, 20);
+        jLabel23.setBounds(770, 210, 140, 20);
 
         jLabel20.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(jLabel20);
-        jLabel20.setBounds(740, 180, 140, 20);
+        jLabel20.setBounds(770, 180, 140, 20);
 
         jLabel18.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(jLabel18);
-        jLabel18.setBounds(740, 150, 140, 20);
+        jLabel18.setBounds(770, 150, 140, 20);
 
         jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(jLabel9);
-        jLabel9.setBounds(580, 270, 140, 20);
+        jLabel9.setBounds(610, 270, 140, 20);
 
         jLabel30.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(jLabel30);
-        jLabel30.setBounds(580, 120, 140, 20);
+        jLabel30.setBounds(610, 120, 140, 20);
 
         jLabel21.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(jLabel21);
-        jLabel21.setBounds(580, 150, 140, 20);
+        jLabel21.setBounds(610, 150, 140, 20);
 
         jLabel24.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(jLabel24);
-        jLabel24.setBounds(580, 180, 140, 20);
+        jLabel24.setBounds(610, 180, 140, 20);
 
         jLabel27.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(jLabel27);
-        jLabel27.setBounds(580, 210, 140, 20);
+        jLabel27.setBounds(610, 210, 140, 20);
 
         jLabel28.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         add(jLabel28);
-        jLabel28.setBounds(580, 240, 140, 20);
+        jLabel28.setBounds(610, 240, 140, 20);
 
         botonSalir1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/CruzSalir.PNG"))); // NOI18N
         botonSalir1.addActionListener(new java.awt.event.ActionListener() {
@@ -553,6 +562,31 @@ public class ABMInmueble extends javax.swing.JPanel implements InmuebleView,Clie
         });
         add(botonSalir1);
         botonSalir1.setBounds(530, 20, 30, 30);
+
+        jPanel2.setLayout(null);
+
+        buttonGroup1.add(jRadioBuTerreno);
+        jRadioBuTerreno.setText("Terreno");
+        jPanel2.add(jRadioBuTerreno);
+        jRadioBuTerreno.setBounds(20, 20, 120, 30);
+
+        buttonGroup1.add(jRadioBuLocal);
+        jRadioBuLocal.setText("Local");
+        jPanel2.add(jRadioBuLocal);
+        jRadioBuLocal.setBounds(150, 10, 100, 40);
+
+        buttonGroup1.add(jRadioBuDepto);
+        jRadioBuDepto.setText("Departamento");
+        jPanel2.add(jRadioBuDepto);
+        jRadioBuDepto.setBounds(270, 10, 120, 40);
+
+        buttonGroup1.add(jRadioBcasa);
+        jRadioBcasa.setText("Casa");
+        jPanel2.add(jRadioBcasa);
+        jRadioBcasa.setBounds(440, 10, 90, 40);
+
+        add(jPanel2);
+        jPanel2.setBounds(20, 220, 540, 60);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jcBoxPatioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcBoxPatioActionPerformed
@@ -578,12 +612,9 @@ public class ABMInmueble extends javax.swing.JPanel implements InmuebleView,Clie
     private void textBarrioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textBarrioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textBarrioActionPerformed
-
-   
-    
-    
+  
     private void botonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonGuardarActionPerformed
-    if(controlCampos()){
+    if(controlCampos().isEmpty()){ 
         int operacion;
         if (jCheckVender.isSelected()){
             operacion = 1;
@@ -600,9 +631,36 @@ public class ABMInmueble extends javax.swing.JPanel implements InmuebleView,Clie
         }else{
             tipo = 4;
         }
-        // el id del inmueble se calcula en la BS y el int servicios no se que onda  y el otros " "tmb
-        Inmueble nuevoI = new Inmueble(-1,idCliente, textDireccion.getText(), Float.parseFloat(textPrecio.getText()),operacion, tipo, 1, textBarrio.getText(),Integer.valueOf(""+spinHabitacion1.getValue()), Integer.valueOf(""+spinBanio.getValue()),jcBoxPatio.isSelected(), jcBoxAmoblada.isSelected(), jcBoxLavadero.isSelected(),jcBoxCocina.isSelected(),jcBoxComedor.isSelected(), jcBoxLiving.isSelected(), jcBoxCocinaLiving.isSelected(), jcBoxCocinaComedor.isSelected(),jcBoxCocinaLivingComedor.isSelected(), Float.parseFloat(""+spinMTS2.getValue()), Float.parseFloat(""+spinMFondo.getValue()),jcBoxCochera.isSelected(), jcBoxPlantaAlta.isSelected(),jCheckImpuestos.isSelected(), -1, Double.parseDouble(textExpensas.getText()), areaObservacion.getText(), " ",jCheckAgua.isSelected(), jCheckGas.isSelected(), jCheckLuz.isSelected());
-        ic.alta(nuevoI);
+        // el id del inmueble se calcula en la BD y el int servicios no se que onda  y el otros " "tmb 
+        if(inmSelec.getId()==-1){
+             Inmueble nuevoI = new Inmueble(-1,inmSelec.getDuenoID(),textDireccion.getText(),
+                     Float.parseFloat(textPrecio.getText()),operacion, tipo, 1, 
+                     textBarrio.getText(),Integer.valueOf(""+spinHabitacion1.getValue()),
+                     Integer.valueOf(""+spinBanio.getValue()),jcBoxPatio.isSelected(), 
+                     jcBoxAmoblada.isSelected(), jcBoxLavadero.isSelected(),jcBoxCocina.isSelected(),
+                     jcBoxComedor.isSelected(), jcBoxLiving.isSelected(), jcBoxCocinaLiving.isSelected(), 
+                     jcBoxCocinaComedor.isSelected(),jcBoxCocinaLivingComedor.isSelected(), 
+                     Float.parseFloat(""+spinMTS2.getValue()), Float.parseFloat(""+spinMFondo.getValue()),
+                     jcBoxCochera.isSelected(), jcBoxPlantaAlta.isSelected(),jCheckImpuestos.isSelected(),
+                     -1, Double.parseDouble(textExpensas.getText()), areaObservacion.getText(), " ",
+                     jCheckAgua.isSelected(), jCheckGas.isSelected(), jCheckLuz.isSelected());
+            ic.alta(nuevoI);
+        }else{ 
+             Inmueble nuevoI = new Inmueble(inmSelec.getId(),inmSelec.getDuenoID(), textDireccion.getText(),
+                     Float.parseFloat(textPrecio.getText()),operacion, tipo, 1,
+                     textBarrio.getText(),Integer.valueOf(""+spinHabitacion1.getValue()),
+                     Integer.valueOf(""+spinBanio.getValue()),jcBoxPatio.isSelected(),
+                     jcBoxAmoblada.isSelected(), jcBoxLavadero.isSelected(),jcBoxCocina.isSelected(),
+                     jcBoxComedor.isSelected(), jcBoxLiving.isSelected(), jcBoxCocinaLiving.isSelected(),
+                     jcBoxCocinaComedor.isSelected(),jcBoxCocinaLivingComedor.isSelected(),
+                     Float.parseFloat(""+spinMTS2.getValue()), Float.parseFloat(""+spinMFondo.getValue()),
+                     jcBoxCochera.isSelected(), jcBoxPlantaAlta.isSelected(),jCheckImpuestos.isSelected(), -1,
+                     Double.parseDouble(textExpensas.getText()), areaObservacion.getText(),
+                     " ",jCheckAgua.isSelected(), jCheckGas.isSelected(), jCheckLuz.isSelected());
+            ic.modificar(nuevoI);
+        }
+        
+        
     }
         
         
@@ -665,10 +723,10 @@ public class ABMInmueble extends javax.swing.JPanel implements InmuebleView,Clie
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JRadioButton jRadioBcasa;
     private javax.swing.JRadioButton jRadioBuDepto;
     private javax.swing.JRadioButton jRadioBuLocal;
@@ -727,10 +785,8 @@ public class ABMInmueble extends javax.swing.JPanel implements InmuebleView,Clie
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
     public void cargarDatosInmueble(Inmueble inm) {
-        // ACA TENGO QUE CARGAR LOS DATOS 
-        inmSelec=inm;
+        // ACA TENGO QUE CARGAR LOS DATOS  
         jLabel10.setText(""+inm.getDuenoID());
         textBarrio.setText(inm.getBarrio());
         textPrecio.setText(""+inm.getPrecio());
@@ -778,7 +834,7 @@ public class ABMInmueble extends javax.swing.JPanel implements InmuebleView,Clie
         jCheckLuz.setSelected(inm.isLuz());
         jCheckGas.setSelected(inm.isGas());
         jCheckImpuestos.setSelected(inm.isImpuestos());
-        areaObservacion.setText(inm.getObservaciones());
+        areaObservacion.setText(inm.getObservaciones()); 
     }
 
     @Override
@@ -830,7 +886,16 @@ public class ABMInmueble extends javax.swing.JPanel implements InmuebleView,Clie
         if (exito){
             JOptionPane.showMessageDialog(this, "El inmueble se ha guardado  con éxito.", "Éxito.",1);
         }else{
-            JOptionPane.showMessageDialog(this, "No se ha podido guardar el inmueble..", "Éxito.",1);
+            JOptionPane.showMessageDialog(this, "No se ha podido guardar el inmueble..", "Error.",2);
+        }
+    }
+
+    @Override
+    public void respuestaModificar(boolean exito) {
+        if (exito){
+            JOptionPane.showMessageDialog(this, "El inmueble se ha Modificado  con éxito.", "Éxito.",1);
+        }else{
+            JOptionPane.showMessageDialog(this, "No se ha podido Modificar el inmueble..", "Error.",2);
         }
     }
 }
