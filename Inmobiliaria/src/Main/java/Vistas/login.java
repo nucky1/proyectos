@@ -5,12 +5,15 @@
  */
 package Vistas;
 
+import Controllers.UsuarioController;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Lucho
  */
-public class Login extends javax.swing.JPanel {
-
+public class Login extends javax.swing.JPanel implements LoginMVP.view{
+    private LoginMVP.controller mController;
     /**
      * Creates new form PanelPrincipal
      */
@@ -20,7 +23,9 @@ public class Login extends javax.swing.JPanel {
         StyleCSS.setPlaceHolder(fieldUser, "usuario");
         StyleCSS.setPlaceHolder(fielPass, "password");
         //-----------------
-        
+        mController = new UsuarioController(this);
+        buttonIngresar.setEnabled(true);
+        buttonSalir.setEnabled(false);
     }
 
     /**
@@ -36,8 +41,9 @@ public class Login extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         fieldUser = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        buttonIngresar = new javax.swing.JButton();
         fielPass = new javax.swing.JPasswordField();
+        buttonSalir = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(null);
@@ -58,20 +64,74 @@ public class Login extends javax.swing.JPanel {
         add(jLabel2);
         jLabel2.setBounds(250, 390, 68, 14);
 
-        jButton1.setText("Ingresar");
-        add(jButton1);
-        jButton1.setBounds(280, 470, 146, 34);
+        buttonIngresar.setText("Ingresar");
+        buttonIngresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonIngresarActionPerformed(evt);
+            }
+        });
+        add(buttonIngresar);
+        buttonIngresar.setBounds(390, 460, 146, 34);
         add(fielPass);
         fielPass.setBounds(250, 410, 220, 30);
+
+        buttonSalir.setText("Salir");
+        buttonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonSalirActionPerformed(evt);
+            }
+        });
+        add(buttonSalir);
+        buttonSalir.setBounds(200, 460, 146, 34);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIngresarActionPerformed
+        String user = fieldUser.getText();
+        char ch[] = fielPass.getPassword();
+        if(user.equals("")){
+            showError("Ingrese un nombre de usuario por favor");
+            return;
+        }
+        if(ch == null){
+            showError("Ingrese una contraseña por favor");
+            return;
+        }
+        String pass = String.valueOf(ch);
+        System.out.println(user+" "+pass);
+        mController.probarInicio(user, pass);
+    }//GEN-LAST:event_buttonIngresarActionPerformed
+
+    private void buttonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSalirActionPerformed
+        mController.salir();
+    }//GEN-LAST:event_buttonSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonIngresar;
+    private javax.swing.JButton buttonSalir;
     private javax.swing.JPasswordField fielPass;
     private javax.swing.JTextField fieldUser;
     private javax.swing.JLabel icono;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void showExit(int operationType) {
+        if(operationType == 1){
+            fielPass.setText("");
+            buttonIngresar.setEnabled(false);
+            buttonSalir.setEnabled(true);
+        }else{
+            fieldUser.setText("");
+            buttonIngresar.setEnabled(true);
+            buttonSalir.setEnabled(false);
+        }
+        
+    }
+
+    @Override
+    public void showError(String error) {
+        JOptionPane.showMessageDialog(null, error, "Error", JOptionPane.ERROR_MESSAGE);
+    }
 }

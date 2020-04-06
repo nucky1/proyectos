@@ -24,7 +24,7 @@ public class AsesorDAO implements AseDAO {
     public void cargar(ArrayList<Asesor> nuevos) {
         String SQL = "INSERT INTO asesor (ase_id, ase_nombre, ase_telefono) VALUES ";
         for(int i=0; i<nuevos.size(); i++){
-            SQL = SQL +"("+nuevos.get(i).getId()+","+nuevos.get(i).getNombre()+","+nuevos.get(i).getTel()+")";
+            SQL = SQL +"("+nuevos.get(i).getId()+",'"+nuevos.get(i).getNombre()+"',"+nuevos.get(i).getTel()+")";
         }
         SQL = SQL.substring(0, SQL.length()-2);
         Main.Conexion.getInstance().EjecutarOperacion(SQL);        
