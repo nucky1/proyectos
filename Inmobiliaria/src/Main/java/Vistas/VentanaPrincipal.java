@@ -68,13 +68,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private void init2(){       
         
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        miPanel = new Login();
-        miPanel.setLayout(null);
-        miPanel.setPreferredSize(new Dimension(1260,660));
-        
-        miScroll = new JScrollPane();
-        miScroll.setBounds(5, 10, 380, 150);
-        miScroll.setViewportView(miPanel);
+         
         
         ip = new InmueblePanel();
         ip.setLayout(null);
@@ -100,6 +94,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         pdp.setLayout(null);
         pdp.setPreferredSize(new Dimension(1260,660));
         
+       
         miOtroScrol3 = new JScrollPane();
         miOtroScrol3.setBounds(5, 10, 380, 150);
         miOtroScrol3.setViewportView(ppa);
@@ -111,6 +106,13 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         miOtroScrol4.setBounds(5, 10, 380, 150);
         miOtroScrol4.setViewportView(ap);
         
+        miPanel = new Login(cp);
+        miPanel.setLayout(null);
+        miPanel.setPreferredSize(new Dimension(1260,660));
+        
+        miScroll = new JScrollPane();
+        miScroll.setBounds(5, 10, 380, 150);
+        miScroll.setViewportView(miPanel);
         miTab = new JTabbedPane();
         miTab.addTab("Principal", miScroll);
         miTab.addTab("Inmueble", miOtroScroll);

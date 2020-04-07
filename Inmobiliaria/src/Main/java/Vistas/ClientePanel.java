@@ -9,13 +9,15 @@ import Controllers.ClienteController;
 import Modelo.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Usuario1
  */
-public class ClientePanel extends javax.swing.JPanel implements ClienteView{
+public class ClientePanel extends javax.swing.JPanel implements ClienteView, Observer{
     private DefaultTableModel tabla;
     private HashMap<Integer,Cliente> mapC =null;
     private HashMap<Integer,Asesor> mapA=null;
@@ -102,7 +104,7 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaInmuebleAlquila = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
-        jButton8 = new javax.swing.JButton();
+        makeContractADM = new javax.swing.JButton();
         botonAltaInmueble = new javax.swing.JButton();
         botonModifInmueble = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -295,15 +297,16 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setLayout(null);
 
-        jButton8.setText("Hacer Contrato administracion");
-        jButton8.setEnabled(false);
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        makeContractADM.setText("Hacer Contrato administracion");
+        makeContractADM.setEnabled(false);
+        makeContractADM.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                makeContractADMActionPerformed(evt);
             }
         });
-        jPanel5.add(jButton8);
-        jButton8.setBounds(590, 280, 180, 40);
+        jPanel5.add(makeContractADM);
+        makeContractADM.setBounds(560, 280, 210, 40);
+        makeContractADM.setVisible(false);
 
         botonAltaInmueble.setBackground(new java.awt.Color(255, 160, 0));
         botonAltaInmueble.setText("Agregar Inmueble");
@@ -504,9 +507,9 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
         }
     }//GEN-LAST:event_botonAltaInmuebleActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+    private void makeContractADMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_makeContractADMActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    }//GEN-LAST:event_makeContractADMActionPerformed
 
     private void botonModifInmuebleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonModifInmuebleActionPerformed
         if(tablaInmuebleDueño.getSelectedRow()!=-1 ){
@@ -565,7 +568,6 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
     private javax.swing.JTextField fieldNombre;
     private javax.swing.JTextField fieldTel;
     private javax.swing.JTextField jBuscarPorNom;
-    private javax.swing.JButton jButton8;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -583,6 +585,7 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JButton makeContractADM;
     private javax.swing.JRadioButton radioCUIT;
     private javax.swing.JRadioButton radioDNI;
     private javax.swing.JTable tablaClientes;
@@ -728,5 +731,12 @@ public class ClientePanel extends javax.swing.JPanel implements ClienteView{
     @Override
     public void cargarDatosClientes(Cliente cte) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        boolean logueado = (boolean) arg;
+        makeContractADM.setVisible(logueado);
+        makeContractADM.setEnabled(logueado);
     }
 }

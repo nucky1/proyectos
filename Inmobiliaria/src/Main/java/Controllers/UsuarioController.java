@@ -6,18 +6,23 @@
 package Controllers;
 
 import DAOs.UsuarioDao;
+import Vistas.ClientePanel;
 import Vistas.LoginMVP;
+import java.util.Observable;
+import javafx.beans.InvalidationListener;
 
 /**
  *
  * @author demig
  */
-public class UsuarioController implements LoginMVP.controller{
+public class UsuarioController extends Observable implements LoginMVP.controller{
     private LoginMVP.dao mdao = new UsuarioDao(this);
     private LoginMVP.view mview;
+    private boolean logueado = false;
 
-    public UsuarioController(LoginMVP.view mview) {
+    public UsuarioController( LoginMVP.view mview,ClientePanel observer) {
         this.mview = mview;
+        this.addObserver(observer);
     }
 
     @Override
@@ -28,7 +33,10 @@ public class UsuarioController implements LoginMVP.controller{
     @Override
     public void showResult(String error ,boolean result) {
         if(result){
+            logueado = true;
             mview.showExit(1);
+            setChanged();
+            notifyObservers(logueado);
         }else{
             mview.showError(error);
         }
@@ -36,12 +44,19 @@ public class UsuarioController implements LoginMVP.controller{
 
     @Override
     public void salir() {
-        boolean exito = true;
-        // codigo para desactivar cosas de admin
-        if(exito){
-            mview.showExit(0);
-        }else{
-            mview.showError("No se pudo salir de la sesion");
-        }
+        logueado = false;
+        mview.showExit(0);
+        setChanged();
+        notifyObservers(logueado);
+    }
+
+    @Override
+    public void addListener(InvalidationListener listener) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void removeListener(InvalidationListener listener) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

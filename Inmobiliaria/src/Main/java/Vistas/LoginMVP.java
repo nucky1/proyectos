@@ -8,6 +8,7 @@ package Vistas;
 import DAOs.CRUD;
 import Modelo.Usuario;
 import java.sql.ResultSet;
+import javafx.beans.Observable;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -29,7 +30,7 @@ public interface LoginMVP {
          */
         void showError(String error);
     }
-    interface controller{
+    interface controller extends Observable{
         void probarInicio(String user, String pass);
         /**
          * Realiza las activaciones necesarias si el result es true

@@ -17,13 +17,13 @@ public class Login extends javax.swing.JPanel implements LoginMVP.view{
     /**
      * Creates new form PanelPrincipal
      */
-    public Login() {
+    public Login(ClientePanel observer) {
         initComponents();
         //------STYLE CSS-----------------
         StyleCSS.setPlaceHolder(fieldUser, "usuario");
         StyleCSS.setPlaceHolder(fielPass, "password");
         //-----------------
-        mController = new UsuarioController(this);
+        mController = new UsuarioController(this,observer);
         buttonIngresar.setEnabled(true);
         buttonSalir.setEnabled(false);
     }
@@ -44,13 +44,14 @@ public class Login extends javax.swing.JPanel implements LoginMVP.view{
         buttonIngresar = new javax.swing.JButton();
         fielPass = new javax.swing.JPasswordField();
         buttonSalir = new javax.swing.JButton();
+        avisoAdminActivo = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(null);
 
         icono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Recursos/Captura.PNG"))); // NOI18N
         add(icono);
-        icono.setBounds(20, 30, 610, 270);
+        icono.setBounds(20, 10, 610, 270);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Usuario:");
@@ -83,6 +84,14 @@ public class Login extends javax.swing.JPanel implements LoginMVP.view{
         });
         add(buttonSalir);
         buttonSalir.setBounds(200, 460, 146, 34);
+
+        avisoAdminActivo.setBackground(new java.awt.Color(255, 255, 255));
+        avisoAdminActivo.setFont(new java.awt.Font("SansSerif", 2, 12)); // NOI18N
+        avisoAdminActivo.setForeground(new java.awt.Color(255, 102, 0));
+        avisoAdminActivo.setText("Sesión administrador activada");
+        add(avisoAdminActivo);
+        avisoAdminActivo.setBounds(250, 290, 300, 14);
+        avisoAdminActivo.setVisible(false);
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonIngresarActionPerformed
@@ -107,6 +116,7 @@ public class Login extends javax.swing.JPanel implements LoginMVP.view{
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel avisoAdminActivo;
     private javax.swing.JButton buttonIngresar;
     private javax.swing.JButton buttonSalir;
     private javax.swing.JPasswordField fielPass;
@@ -120,10 +130,12 @@ public class Login extends javax.swing.JPanel implements LoginMVP.view{
     public void showExit(int operationType) {
         if(operationType == 1){
             fielPass.setText("");
+            avisoAdminActivo.setVisible(true);
             buttonIngresar.setEnabled(false);
             buttonSalir.setEnabled(true);
         }else{
             fieldUser.setText("");
+            avisoAdminActivo.setVisible(false);
             buttonIngresar.setEnabled(true);
             buttonSalir.setEnabled(false);
         }
